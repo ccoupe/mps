@@ -1,0 +1,96 @@
+.                                                                       WDMP0001
+.  WISP SNAPSHOT ROUTINE.  ALL LISTS TO BE SNAPPED HAVE ALREADY BEEN    WDMP0002
+.  TRACED AND MARKED BY THE TRACE ROUTINE OF DYNALC.                    WDMP0003
+.                                                                       WDMP0004
+      ENTRY SNAP.                                                       WDMP0005
+      (NIL) = 01, LINE BUFFER = NIL.                                    WDMP0006
+      WRITE OUTPT, WRITE OUTPT.    SKIP TWO LINES.                      WDMP0007
+      LINE BUFFER = '*.            PRINT HEADING FOR BASE REGISTERS.    WDMP0008
+      LINE BUFFER = 'B.                                                 WDMP0009
+      LINE BUFFER = 'R.                                                 WDMP0010
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0011
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0012
+      (P1) = NIL, (P3) = LINE.     START A NEW LINE, AND DUMP BASES.    WDMP0013
+.                                                                       WDMP0014
+.  DUMP THE BASE REGISTERS, INCLUDING THOSE DEFINED BY THE USER         WDMP0015
+.                                                                       WDMP0016
+NEXBR,(P1) = CAR P1, USE TABOUT.   GO TO NEXT BASE REGISTER             WDMP0017
+      TO FAIL1 IF AF P1 = 00.      FAIL ON TRUNCATED CAR CHAIN.         WDMP0018
+      (P2) = (P1), USE DUMPER.     WRITE THE BASE REGISTER NAME.        WDMP0019
+      (P2) = CDR P1, USE DUMPER.   DUMP THE VALUE.                      WDMP0020
+      AF P1 = 00.                  MAKE SURE IT DOES NOT PRINT AGAIN.   WDMP0021
+      TO NEXBR IF CAR P1 NE NIL.   ARE WE DONE, NO.                     WDMP0022
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0023
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0024
+.                                                                       WDMP0025
+.  INITIALIZE THE HEADER FOR THE ELEMENT DUMP                           WDMP0026
+.                                                                       WDMP0027
+      WRITE OUTPT.                 SKIP A SECOND LINE.                  WDMP0028
+      LINE BUFFER = '*.            PRINT HEADING FOR ELEMENTS.          WDMP0029
+      LINE BUFFER = 'E.                                                 WDMP0030
+      LINE BUFFER = 'L.                                                 WDMP0031
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0032
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0033
+      (P1) = (BOT), (P3) = LINE.   START A NEW LINE, DUMP DATA MEMORY.  WDMP0034
+.                                                                       WDMP0035
+.  DUMP ELEMENTS WHICH HAVE BEEN MARKED BY THE TRACE.  NOTE THAT BASE   WDMP0036
+.  REGISTERS HAVE ALL BEEN UNMARKED TO PREVENT DUPLICATION.  THE BASE   WDMP0037
+.  REGISTERS WERE ALL DUMPED ABOVE.                                     WDMP0038
+.                                                                       WDMP0039
+CKAF1,TO DUMPL IF AF P1 = 01.      GO DUMP THIS ELEMENT IF NECCESARY.   WDMP0040
+      TO ADVP1 IF (P3) = LINE.     ELSE RESET FOR NEW LINE IF NECCESARY.WDMP0041
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0042
+      (P3) = LINE.                                                      WDMP0043
+ADVP1,TO FIXFL IF (P1) = (TOP).    CHECK COMPLETION                     WDMP0044
+BMPPT,INCR (P1), TO CKAF1.         IF NOT, CONTINUE.                    WDMP0045
+DUMPL,AF P1 = 00, USE TABOUT.      ERASE THE FLAG AND DUMP THE CAR OF   WDMP0046
+      (P2) = CAR P1, USE DUMPER.   THE ELEMENT.                         WDMP0047
+      (P2) = CDR P1, USE DUMPER.   DUMP THE CDR.                        WDMP0048
+      TO BMPPT IF (P1) LT (TOP).   CONTINUE IF NOT FINISHED.            WDMP0049
+      LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0050
+FIXFL,LINE BUFFER = NIL, WRITE OUTPT, WRITE OUTPT.                      WDMP0051
+      (P1) = NIL.                  FIX UP THE BASE REGISTER ATOM FLAGS. WDMP0052
+.                                                                       WDMP0053
+.  THE BASE REGISTERS MUST NOW BE RE-MARKED TO PREVENT LOSS OF          WDMP0054
+.  INFORMATION.  THE DUMP MAKES THE SAME ASSUMPTIONS REGARDING THE USE  WDMP0055
+.  OF ATOM FLAGS AS THE TRACE ROUTINE - THE ATOM FLAGS OF ALL BASE      WDMP0056
+.  REGISTERS ARE SET, AND THE ATOM FLAGS OF ALL OTHER ELEMENTS ARE      WDMP0057
+.  RESET.                                                               WDMP0058
+.                                                                       WDMP0059
+REATM,(P1) = CAR P1, AF P1 = 01.                                        WDMP0060
+      TO REATM IF CAR P1 NE NIL.                                        WDMP0061
+      EXIT SNAP.                                                        WDMP0062
+.                                                                       WDMP0063
+.  ROUTINE TO TAB OVER TO NEXT DUMP POSITION                            WDMP0064
+.                                                                       WDMP0065
+      ENTRY TABOUT.                                                     WDMP0066
+      TO MIDLN IF (P3) NE LINE.    CHECK FOR MID-LINE.                  WDMP0067
+CKBR, TO MIDLN IF AF P1 = 01.      CHECK FOR BASE REGISTER.             WDMP0068
+      (P2) = (P1), USE DUMPER.     IF NOT, DUMP ADDRESS.                WDMP0069
+MIDLN,LINE BUFFER = ' .            TAB TO NEXT POSITION OF LINE BUFFER. WDMP0070
+      TO MIDLN IF (NIL) NE CAR P3.                                      WDMP0071
+      (P3) = CDR P3.               ADVANCE TAB POSITION.                WDMP0072
+      TO WROUT IF (P3) = LINE.     TEST FOR END OF LINE.                WDMP0073
+      EXIT TABOUT.                                                      WDMP0074
+WROUT,LINE BUFFER = NIL, WRITE OUTPT.                                   WDMP0075
+      TO CKBR.                                                          WDMP0076
+.                                                                       WDMP0077
+.  TAB SETTINGS                                                         WDMP0078
+.                                                                       WDMP0079
+LINE, ELEMENT 00 00 11 TAB1.                                            WDMP0080
+TAB1, ELEMENT 00 00 28 TAB2.                                            WDMP0081
+TAB2, ELEMENT 00 00 45 TAB3.                                            WDMP0082
+TAB3, ELEMENT 00 00 62 TAB4.                                            WDMP0083
+TAB4, ELEMENT 00 00 79 LINE.                                            WDMP0084
+.                                                                       WDMP0085
+      ENTRY DUMPER.          ASSEMBLY CODE ROUTINE FOR WRITING OUT A    WDMP0086
+.                            POINTER.  IF THE POINTER IS A PRINTABLE    WDMP0087
+.                            ATOM, THEN IT IS WRITTEN AS SUCH.          WDMP0088
+.                            OTHERWISE IT IS WRITTEN AS AN ADDRESS.     WDMP0089
+.                                                                       WDMP0090
+      COPY TO END DUMPER.    CODE TO DUMP A POINTER AS AN ATOM OR ADDR  WDMP0091
+END DUMPER.                                                             WDMP0092
+.                                                                       WDMP0093
+      EXIT DUMPER.           GET OUT AFTER WRITING A POINTER            WDMP0094
+.                                                                       WDMP0095
+      END DUMPER.                                                       WDMP0096

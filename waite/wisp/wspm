@@ -1,0 +1,239 @@
+.$$'0 (+-*/)                                                            WSPM0001
+- $ $ $.                                                                WSPM0002
+ERR '20 '30 ILLEGAL SYMBOL$                                             WSPM0003
+$                                                                       WSPM0004
++ $ $.                                                                  WSPM0005
+IF '25 GT 1 SKIP 2$                                                     WSPM0006
+- '10DR '20$                                                            WSPM0007
+'F9$                                                                    WSPM0008
+IF '10 NE STO SKIP 2$                                                   WSPM0009
+ERR '20 IS IMMEDIATE AND CANNOT BE SET$                                 WSPM0010
+'F9$                                                                    WSPM0011
+IF '10 NE INC SKIP 2$                                                   WSPM0012
+ERR '20 IS IMMEDIATE AND CANNOT BE INCREMENTED$                         WSPM0013
+'F9$                                                                    WSPM0014
+- '10IM '20$                                                            WSPM0015
+$                                                                       WSPM0016
++ $ $ $.                                                                WSPM0017
+ERR '20 '30 ILLEGAL OPERAND$                                            WSPM0018
+$                                                                       WSPM0019
++ STO '$.                                                               WSPM0020
+ERR '''10 IS IMMEDIATE AND CANNOT BE SET$                               WSPM0021
+$                                                                       WSPM0022
++ INC '$.                                                               WSPM0023
+ERR '''10 IS IMMEDIATE AND CANNOT BE INCREMENTED$                       WSPM0024
+$                                                                       WSPM0025
++ D$ ($).                                                               WSPM0026
+ERR ('20) ILLEGAL IN ELEMENT DECLARATIONS BECAUSE IT IS NOT IMMEDIATE$  WSPM0027
+$                                                                       WSPM0028
++ $ ($).                                                                WSPM0029
+- '10DR '20$                                                            WSPM0030
+$                                                                       WSPM0031
++ D$ AF $.                                                              WSPM0032
+ERR AF '20 ILLEGAL IN ELEMENT DECLARATIONS BECAUSE IT IS NOT IMMEDIATE$ WSPM0033
+$                                                                       WSPM0034
++ IOP AF $.                                                             WSPM0035
+ERR AF '20 ILLEGAL AS THE SECOND OPERAND OF AN I/O STATEMENT$           WSPM0036
+$                                                                       WSPM0037
++ J$ AF $.                                                              WSPM0038
+ERR AF '20 ILLEGAL JUMP TARGET$                                         WSPM0039
+$                                                                       WSPM0040
++ $ AF $.                                                               WSPM0041
+- '10AF '20$                                                            WSPM0042
+$                                                                       WSPM0043
++ D$ BPF $.                                                             WSPM0044
+ERR BPF '20 ILLEGAL IN ELEMENT DECLARATIONS BECAUSE IT IS NOT IMMEDIATE$WSPM0045
+$                                                                       WSPM0046
++ IOP BPF $.                                                            WSPM0047
+ERR BPF '20 ILLEGAL AS THE SECOND OPERAND OF AN I/O STATEMENT$          WSPM0048
+$                                                                       WSPM0049
++ J$ BPF $.                                                             WSPM0050
+ERR BPF '20 ILLEGAL JUMP TARGET$                                        WSPM0051
+$                                                                       WSPM0052
++ $ BPF $.                                                              WSPM0053
+- '10BP '20$                                                            WSPM0054
+$                                                                       WSPM0055
++ D$ CAR $.                                                             WSPM0056
+ERR CAR '20 ILLEGAL IN ELEMENT DECLARATIONS BECAUSE IT IS NOT IMMEDIATE$WSPM0057
+$                                                                       WSPM0058
++ $ CAR $.                                                              WSPM0059
+- '10CA '20$                                                            WSPM0060
+$                                                                       WSPM0061
++ D$ CDR $.                                                             WSPM0062
+ERR CDR '20 ILLEGAL IN ELEMENT DECLARATIONS BECAUSE IT IS NOT IMMEDIATE$WSPM0063
+$                                                                       WSPM0064
++ $ CDR $.                                                              WSPM0065
+- '10CD '20$                                                            WSPM0066
+$                                                                       WSPM0067
++ L$ $ $.                                                               WSPM0068
+ERR '20 '30 ILLEGAL LOCATION SYMBOL$                                    WSPM0069
+$                                                                       WSPM0070
++ L$ $.                                                                 WSPM0071
+IF '15 = 1 SKIP 2$                                                      WSPM0072
+'20'370123456789$                                                       WSPM0073
+IF '30 NE  SKIP 2$                                                      WSPM0074
+ERR '10 ILLEGAL LOCATION SYMBOL$                                        WSPM0075
+'F9$                                                                    WSPM0076
+L'10IM '22 '20$                                                         WSPM0077
+$                                                                       WSPM0078
+.                                                                       WSPM0079
+IF ('10) = () SKIP 1$                                                   WSPM0080
++ LOC '10$                                                              WSPM0081
+IF ('20) = () SKIP 1$                                                   WSPM0082
+'20$                                                                    WSPM0083
+IF ('30) = () SKIP 1$                                                   WSPM0084
+'30$                                                                    WSPM0085
+IF ('40) = () SKIP 1$                                                   WSPM0086
+'40$                                                                    WSPM0087
+IF ('50) = () SKIP 1$                                                   WSPM0088
+'50$                                                                    WSPM0089
+IF ('60) = () SKIP 1$                                                   WSPM0090
+'60$                                                                    WSPM0091
+IF ('70) = () SKIP 1$                                                   WSPM0092
+'70$                                                                    WSPM0093
+IF ('80) = () SKIP 1$                                                   WSPM0094
+'80$                                                                    WSPM0095
+IF ('90) = () SKIP 1$                                                   WSPM0096
+'90$                                                                    WSPM0097
+$                                                                       WSPM0098
+TO $.                                                                   WSPM0099
++ JMP '10$                                                              WSPM0100
+$                                                                       WSPM0101
+INCR $.                                                                 WSPM0102
++ INC '10$                                                              WSPM0103
+$                                                                       WSPM0104
+$ = $.                                                                  WSPM0105
++ FET '20$                                                              WSPM0106
++ STO '10$                                                              WSPM0107
+$                                                                       WSPM0108
+IO $ ON $.                                                              WSPM0109
++ FET '10$                                                              WSPM0110
++ IOP '20$                                                              WSPM0111
+$                                                                       WSPM0112
+TO $ IF $ = $.                                                          WSPM0113
++ FET '20$                                                              WSPM0114
++ CMP '30$                                                              WSPM0115
++ JEQ '10$                                                              WSPM0116
+$                                                                       WSPM0117
+TO $ IF $ NE $.                                                         WSPM0118
++ FET '20$                                                              WSPM0119
++ CMP '30$                                                              WSPM0120
++ JNE '10$                                                              WSPM0121
+$                                                                       WSPM0122
+TO $ IF $ LT $.                                                         WSPM0123
++ FET '20$                                                              WSPM0124
++ CMP '30$                                                              WSPM0125
++ JLT '10$                                                              WSPM0126
+$                                                                       WSPM0127
+ELEMENT $ $ $ $.                                                        WSPM0128
++ DCD '40$                                                              WSPM0129
++ DAF '10$                                                              WSPM0130
++ DBP '20$                                                              WSPM0131
++ DCA '30$                                                              WSPM0132
+$                                                                       WSPM0133
+$ = LINE BUFFER.                                                        WSPM0134
+IO 01 ON '10$                                                           WSPM0135
+$                                                                       WSPM0136
+LINE BUFFER = $.                                                        WSPM0137
+IO 02 ON '10$                                                           WSPM0138
+$                                                                       WSPM0139
+READ $.                                                                 WSPM0140
+IO 03 ON '10$                                                           WSPM0141
+$                                                                       WSPM0142
+WRITE $.                                                                WSPM0143
+IO 04 ON '10$                                                           WSPM0144
+$                                                                       WSPM0145
+ENDFILE $.                                                              WSPM0146
+IO 05 ON '10$                                                           WSPM0147
+$                                                                       WSPM0148
+REWIND $.                                                               WSPM0149
+IO 06 ON '10$                                                           WSPM0150
+$                                                                       WSPM0151
+ENTRY $.                                                                WSPM0152
++ LEN '10$                                                              WSPM0153
+$                                                                       WSPM0154
+USE $.                                                                  WSPM0155
++ USE '10$                                                              WSPM0156
+$                                                                       WSPM0157
+EXIT $.                                                                 WSPM0158
++ XIT '10$                                                              WSPM0159
+$                                                                       WSPM0160
+$ = NEW ELEMENT.                                                        WSPM0161
+USE GETNEW$                                                             WSPM0162
+'10 = (P1)$                                                             WSPM0163
+$                                                                       WSPM0164
+PUSH DOWN AF $.                                                         WSPM0165
+ERR AF '10 ILLEGAL IN PUSH DOWN$                                        WSPM0166
+$                                                                       WSPM0167
+PUSH DOWN BPF $.                                                        WSPM0168
+ERR BPF '10 ILLEGAL IN PUSH DOWN$                                       WSPM0169
+$                                                                       WSPM0170
+POP UP AF $.                                                            WSPM0171
+ERR AF '10 ILLEGAL IN POP UP$                                           WSPM0172
+$                                                                       WSPM0173
+POP UP BPF $.                                                           WSPM0174
+ERR BPF '10 ILLEGAL IN POP UP$                                          WSPM0175
+$                                                                       WSPM0176
+PUSH DOWN $.                                                            WSPM0177
+USE GETNEW$                                                             WSPM0178
+(P2) = '10$                                                             WSPM0179
+CAR P1 = CAR P2$                                                        WSPM0180
+CDR P1 = CDR P2$                                                        WSPM0181
+CDR P2 = (P1)$                                                          WSPM0182
+$                                                                       WSPM0183
+POP UP $.                                                               WSPM0184
+(P1) = '10$                                                             WSPM0185
+(P2) = CDR P1$                                                          WSPM0186
+CAR P1 = CAR P2$                                                        WSPM0187
+CDR P1 = CDR P2$                                                        WSPM0188
+CDR P2 = (FREE)$                                                        WSPM0189
+(FREE) = (P2)$                                                          WSPM0190
+$                                                                       WSPM0191
+COPY TO $.                                                              WSPM0192
+'F2$                                                                    WSPM0193
+$                                                                       WSPM0194
+$ EQU $.                                                                WSPM0195
+'F3$                                                                    WSPM0196
+$                                                                       WSPM0197
+$ SET $.                                                                WSPM0198
+'24'26$                                                                 WSPM0199
+'F3$                                                                    WSPM0200
+$                                                                       WSPM0201
+SKIP $.                                                                 WSPM0202
+'F4$                                                                    WSPM0203
+$                                                                       WSPM0204
+IF $ = $ SKIP $.                                                        WSPM0205
+'F50$                                                                   WSPM0206
+$                                                                       WSPM0207
+IF $ NE $ SKIP $.                                                       WSPM0208
+'F51$                                                                   WSPM0209
+$                                                                       WSPM0210
+IF $ GT $ SKIP $.                                                       WSPM0211
+'F6+$                                                                   WSPM0212
+$                                                                       WSPM0213
+ERR $.                                                                  WSPM0214
+***** '10'F14$                                                          WSPM0215
+ 'F14$                                                                  WSPM0216
+$                                                                       WSPM0217
+$.                                                                      WSPM0218
+ERR '10 UNRECOGNIZED$                                                   WSPM0219
+$                                                                       WSPM0220
+BASIC WISP COMPILER$.                                                   WSPM0221
+NIL EQU NIL$                                                            WSPM0222
+P2 EQU P2$                                                              WSPM0223
+ 'F14$                                                                  WSPM0224
+ 'F14$                                                                  WSPM0225
+ENVIRONMENT END'16 'F2$      COPY HEADING INFO AND PSEUDOS              WSPM0226
+'16$                                                                    WSPM0227
+2'F2$                                                                   WSPM0228
+$                                                                       WSPM0229
+LOAD $.                                                                 WSPM0230
+'16$                                                                    WSPM0231
+1'F2$                                                                   WSPM0232
+$                                                                       WSPM0233
+END $.                                                                  WSPM0234
+'16$                                                                    WSPM0235
+2'F2$                                                                   WSPM0236
+$$                                                                      WSPM0237
+      BASIC WISP COMPILER - VERSION 01 FEB 72.                          WSPM0238
+ENVIRONMENT END                                                         WSPM0239

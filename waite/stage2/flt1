@@ -1,0 +1,736 @@
+%%FLBM.DAT
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 01.                                      TO ** 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 01. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 02 IF FLG 1 = 1.                         TO ** IF FLG * = *
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 02. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 03 IF FLG 1 = 2. 
+TO 04.
+LOC 03. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 04. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 05 IF FLG 1 NE 2.                        TO ** IF FLG * NE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 05. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 06 IF FLG 1 NE 1.
+TO 07.
+LOC 06. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 07. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 08 IF VAL 1 = 1.                         TO ** IF VAL * = *
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 08. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 09 IF VAL 1 = 2. 
+TO 10.
+LOC 09. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 10. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 11 IF VAL 1 NE 2.                        TO ** IF VAL * NE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 11. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 12 IF VAL 1 NE 1.
+TO 13.
+LOC 12. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 13. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 14 IF PTR 1 = 1.                         TO ** IF PTR * = *
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 14. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 15 IF PTR 1 = 2. 
+TO 16.
+LOC 15. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 16. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 17 IF PTR 1 NE 2.                        TO ** IF PTR * NE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 17. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 18 IF PTR 1 NE 1.
+TO 19.
+LOC 18. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 19. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 20 IF PTR 3 GE 1.                        TO ** IF PTR * GE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 20. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 21 IF PTR 1 GE 1.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 21. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 22 IF PTR 1 GE 2.
+TO 23.
+LOC 22. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 23. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG A = 1.                                  FLG * = * 
+TO 24 IF FLG A = 1. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 24. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL A = PTR 3.                              VAL * = PTR * 
+TO 25 IF VAL A = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 25. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR A = VAL 3.                              PTR * = VAL * 
+TO 26 IF PTR A = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 26. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG C = 0.
+PTR C = VAL 0.
+VAL C = PTR 2.                              VAL * = PTR * 
+TO 27 IF PTR C = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 27. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 28 IF FLG C = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 28. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL C = PTR 0.
+FLG C = 0.
+PTR C = VAL 0.                              PTR * = VAL * 
+TO 29 IF VAL C = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 29. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 30 IF FLG C = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 30. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL D = PTR 0.
+PTR D = VAL 0.
+FLG D = 3.                                  FLG * = * 
+TO 31 IF PTR D = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 31. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 32 IF VAL D = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 32. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG E = 0.
+PTR E = VAL 0.
+VAL E = 1 + 3.                              VAL * = * + * 
+TO 33 IF VAL E = 4. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 33. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 34 IF FLG E = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 34. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 35 IF PTR E = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 35. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL C = CHAR.                READ THE CARD NUMBER.
+VAL D = CHAR.                READ THE PERIOD. 
+VAL E = CHAR.                READ A SPACE.
+VAL E = CHAR.                READ THE SECOND SPACE. 
+VAL F = CHAR.                READ A ZERO. 
+CHAR = VAL C.                REWRITE THE FIRST FOUR COLUMNS.
+CHAR = VAL D. 
+CHAR = VAL E. 
+CHAR = VAL E. 
+VAL G = F + 0.               PRINT THE NUMERIC VAL FIELDS.
+CHAR = VAL G. 
+CHAR = VAL E.                PRINT A SPACE FOLLOWING EACH.
+VAL G = F + 1.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 2.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 3.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 4.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 5.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 6.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 7.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 8.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL G = F + 9.
+CHAR = VAL G. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL C = CHAR.                READ THE CARD NUMBER.
+VAL D = CHAR.                READ THE PERIOD. 
+CHAR = VAL C.                REWRITE THE FIRST FOUR COLUMNS.
+CHAR = VAL D. 
+CHAR = VAL E. 
+CHAR = VAL E. 
+VAL H = PTR 0.               PRINT OUT PTR 0 - PTR 3. 
+VAL G = F + H.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL H = PTR 1.
+VAL G = F + H.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL H = PTR 2.
+VAL G = F + H.
+CHAR = VAL G. 
+CHAR = VAL E. 
+VAL H = PTR 3.
+VAL G = F + H.
+CHAR = VAL G. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG F = 0.
+PTR F = VAL 0.
+VAL F = 3 - 1.                              VAL * = * - * 
+TO 36 IF VAL F = 2. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 36. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 37 IF FLG F = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 37. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 38 IF PTR F = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 38. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG G = 0.
+PTR G = VAL 0.
+VAL G = 1 - 3.
+VAL H = G + 4.
+TO 39 IF VAL H = 2. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 39. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 40 IF FLG G = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 40. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 41 IF PTR G = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 41. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL H = G + 1.                              VAL * = * + *.
+VAL I = 0 - 1.
+TO 42 IF VAL H = I. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 42. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL J = I + I.
+TO 43 IF VAL J = G. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 43. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL K = H - 1.                              VAL * = * - * 
+TO 44 IF VAL K = G. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 44. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL L = 1 - G.
+TO 45 IF VAL L = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 45. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG M = 0.
+VAL M = PTR 0.
+PTR M = 1 + 2.                              PTR * = * + * 
+TO 46 IF PTR M = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 46. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 47 IF FLG M = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 47. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 48 IF VAL M = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 48. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG N = 0.
+VAL N = PTR 0.
+PTR N = 3 - 2.                              PTR * = * - * 
+TO 49 IF PTR N = 1. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 49. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 50 IF FLG N = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 50. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 51 IF VAL N = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 51. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR O = VAL 5.
+PTR P = VAL 4.
+PTR P = 0 - P.
+FLG O = 0.
+VAL O = PTR 0.
+PTR O = 2 - O.
+PTR P = P + 1.
+TO 52 IF PTR O = P. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 52. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 53 IF FLG O = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 53. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 54 IF VAL O = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 54. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR Q = 0 - 1.
+PTR R = P + 2.                              PTR * = * + * 
+TO 55 IF PTR R = Q. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 55. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR S = R + Q.
+PTR S = S + Q.
+TO 56 IF PTR S = P. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 56. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR T = R - 2.                              PTR * = * - * 
+TO 57 IF PTR T = P. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 57. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR T = 2 - R.
+TO 58 IF PTR T = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 58. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG U = 0.
+PTR U = VAL 0.
+VAL U = PTR Q.                              VAL * = PTR * 
+TO 59 IF VAL U = H. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 59. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 60 IF FLG U = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 60. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 61 IF PTR U = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 61. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG V = 0.
+VAL V = PTR 0.
+PTR V = VAL I.                              PTR * = VAL * 
+TO 62 IF PTR V = Q. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 62. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 63 IF FLG V = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 63. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 64 IF VAL V = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 64. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL X = PTR 0.
+FLG X = 0.
+PTR D = VAL 9.
+PTR X = 3 * 3.                              PTR ' = ' * ' 
+TO 65 IF PTR X = D. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 65. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 66 IF FLG X = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 66. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 67 IF VAL X = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 67. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR X = P * S.
+TO 68 IF PTR X = D. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 68. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR D = 0 - D.
+FLG Y = 0.
+VAL Y = PTR 0.
+PTR Y = P * 3.
+TO 69 IF PTR Y = D. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 69. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 70 IF FLG Y = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 70. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 71 IF VAL Y = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 71. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR Y = 3 * P.
+TO 72 IF PTR Y = D. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 72. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR D = VAL 9.
+FLG Z = 0.
+VAL Z = PTR 0.
+PTR Z = D / 3.                              PTR * = * / * 
+TO 73 IF PTR Z = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 73. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 74 IF FLG Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 74. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 75 IF VAL Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 75. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR D = 0 - D.
+PTR Z = D / S.
+TO 76 IF PTR Z = 3. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 76. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG Z = 0.
+VAL Z = PTR 0.
+PTR Z = D / 3.
+TO 77 IF PTR Z = S. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 77. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 78 IF FLG Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 78. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 79 IF VAL Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 79. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR D = VAL 9.
+PTR Z = D / S.
+TO 80 IF PTR Z = S. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 80. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR E = VAL 5.
+FLG Z = 0.
+VAL Z = PTR 0.
+PTR Z = D / E.
+TO 81 IF PTR Z = 1. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 81. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 82 IF FLG Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 82. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 83 IF VAL Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 83. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR E = 0 - E.
+FLG Z = 0.
+VAL Z = PTR 0.
+PTR Z = D / E.
+TO 84 IF PTR Z = Q. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 84. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 85 IF FLG Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 85. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 86 IF VAL Z = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 86. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL F = 0 - 6.
+TO 87 IF VAL F = 6.                         TO ** IF VAL * = *
+TO 88.
+LOC 87. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 88. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 89 IF VAL F NE 8.                        TO ** IF VAL * NE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 89. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 90 IF PTR R = 1.                         TO ** IF PTR * = *
+TO 91.
+LOC 90. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 91. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 92 IF PTR S NE 1.                        TO ** IF PTR * NE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 92. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 93 IF PTR 2 GE Q.                        TO ** IF PTR * GE * 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 93. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 94 IF PTR S GE 3.
+TO 95.
+LOC 94. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 95. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 96 IF PTR R GE S.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 96. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 97 IF PTR S GE R.
+TO 98.
+LOC 97. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 98. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+TO 99 BY I. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+STOP. 
+LOC 99. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+RETURN BY I.
+STOP. 
+END PROGRAM.

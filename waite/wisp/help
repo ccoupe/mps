@@ -1,0 +1,683 @@
+       USE INITL.                  SET UP THE FREE LIST.                HELP0001
+       A = NIL, F = NIL.           INITIALIZE THE DICTIONARIES.         HELP0002
+       READ CHAR, (NIL) = 01.      READ THE FUNCTION NAMES.             HELP0003
+       C = ' .                     SPACES ARE NOT SIGNIFICANT.          HELP0004
+       (CHAR) = NIL, USE FINPUT.   GRAB THE FIRST TOKEN OF THE LINE.    HELP0005
+       TO QUIT IF Z NE 01.         VERIFY AN ATOM.                      HELP0006
+       (TRUE) = CDR Y.             SET UP *TRUE.                        HELP0007
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0008
+       TO QUIT IF Z NE 11.         VERIFY A COMMA.                      HELP0009
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0010
+       TO QUIT IF Z NE 01.         VERIFY AN ATOM.                      HELP0011
+       (FALSE) = CDR Y.            SET UP *FALSE.                       HELP0012
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0013
+       TO QUIT IF Z NE 11.         VERIFY A COMMA.                      HELP0014
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0015
+       TO QUIT IF Z NE 03.         VERIFY A FUNCTION.                   HELP0016
+       X = NEW ELEMENT.                                                 HELP0017
+       CAR X = L11, CDR X = 'F.    DEFINE THE CAR FUNCTION.             HELP0018
+       Y = CDR Y, CAR Y = X.                                            HELP0019
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0020
+       TO QUIT IF Z NE 03.         VERIFY A FUNCTION.                   HELP0021
+       X = NEW ELEMENT.                                                 HELP0022
+       CAR X = L12, CDR X = 'F.    DEFINE THE CDR FUNCTION.             HELP0023
+       Y = CDR Y, CAR Y = X.                                            HELP0024
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0025
+       TO QUIT IF Z NE 03.         VERIFY A FUNCTION.                   HELP0026
+       X = NEW ELEMENT.                                                 HELP0027
+       CAR X = L13, CDR X = 'F.    DEFINE THE CONS FUNCTION.            HELP0028
+       Y = CDR Y, CAR Y = X.                                            HELP0029
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0030
+       TO QUIT IF Z NE 03.         VERIFY A FUNCTION.                   HELP0031
+       X = NEW ELEMENT.                                                 HELP0032
+       CAR X = L14, CDR X = 'F.    DEFINE THE ATOM FUNCTION.            HELP0033
+       Y = CDR Y, CAR Y = X.                                            HELP0034
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0035
+       TO QUIT IF Z NE 03.         VERIFY A FUNCTION.                   HELP0036
+       X = NEW ELEMENT.                                                 HELP0037
+       CAR X = L15, CDR X = 'F.    DEFINE THE NULL FUNCTION.            HELP0038
+       Y = CDR Y, CAR Y = X.                                            HELP0039
+       USE FINPUT.                 GRAB THE NEXT TOKEN.                 HELP0040
+       TO QUIT IF Z NE 09.         VERIFY A SEMICOLON.                  HELP0041
+       Q = NEW ELEMENT, CDR Q = NIL.                                    HELP0042
+       T = NEW ELEMENT.                                                 HELP0043
+NEWR,  R = NEW ELEMENT.                                                 HELP0044
+NEXTE, CAR R = NIL, CDR R = NIL.   INITIALIZE FOR A NEW EXPRESSION.     HELP0045
+       CAR T = EVAL, CDR T = NIL.  SET A RETURN TO THE INTERPRETER.     HELP0046
+       V = NIL.                    CLEAR THE IDENTIFIER DICTIONARY      HELP0047
+       (NIL) = 01, LINE BUFFER = NIL.                                   HELP0048
+       WRITE OUTPUT.               OUTPUT A BLANK LINE.                 HELP0049
+       (CHAR) = NIL, USE FINPUT.   GRAB THE FIRST TOKEN OF THE LINE.    HELP0050
+       TO EX IF Z NE 12.           IF NOT DEF, READ EXPRESSION.         HELP0051
+       USE FINPUT.                 ELSE GRAB FUNCTION NAME.             HELP0052
+       P = CDR Y.                  SAVE IT FOR PRINTING.                HELP0053
+       TO ERR18 IF Z NE 03.        VERIFY THE FUNCTION NAME.            HELP0054
+       TO ERR19 IF CAR Y NE NIL.   VERIFY THAT IT IS A NEW NAME.        HELP0055
+       USE FINPUT.                 GET THE FIRST BOUND VARIABLE.        HELP0056
+       TO FIXDEF IF Z = 08.        CHECK FOR NULL LIST.                 HELP0057
+BVARS, TO ERR20 IF Z NE 02.        VERIFY AN IDENTIFIER.                HELP0058
+       TO ERR21 IF CDR Y NE NIL.   WHICH HAS NOT BEEN SEEN.             HELP0059
+       CAR R = L4, PUSH DOWN R.    SET THE INTERPRETER ADDRESS          HELP0060
+       CDR Y = CDR R.              AND ATTACH TO DICTIONARY.            HELP0061
+       USE FINPUT.                 GRAB NEXT TOKEN.                     HELP0062
+       TO FIXDEF IF Z = 08.        COULD BE A TERMINATOR                HELP0063
+       TO ERR22 IF Z NE 11.        OR A COMMA.                          HELP0064
+       USE FINPUT, TO BVARS.       IN WHICH CASE, CONTINUE.             HELP0065
+ERR18, 1 = '1, 2 = '8, TO ERROR.   MISSING FUNCTION.                    HELP0066
+ERR19, 1 = '1, 2 = '9, TO ERROR.   MULTIPLE DEFINITION.                 HELP0067
+ERR20, 1 = '2, 2 = '0, TO ERROR.   INVALID BOUND VARIABLE               HELP0068
+ERR21, 1 = '2, 2 = '1, TO ERROR.   DUPLICATE BOUND VARIABLE.            HELP0069
+ERR22, 1 = '2, 2 = '2, TO ERROR.   INVALID SEPARATOR.                   HELP0070
+FIXDEF,USE FINPUT.                 GRAB '=.                             HELP0071
+       CAR T = FIXDF1.             SET UP THE RETURN FROM TRANSLATING   HELP0072
+       TO REX IF Z = 19.           AND VERIFY AN =.                     HELP0073
+       1 = '2, 2 = '3, TO ERROR.   MISSING ASSIGNMENT.                  HELP0074
+FIXDF1,TO L01 IF Z NE 09.          VERIFY THE CLOSING SEMICOLON.        HELP0075
+       CAR P = R.                  MAKE THE EXPRESSION THE FUNCTION DEF HELP0076
+       (NIL) = 01.                 START A NEW LINE.                    HELP0077
+       Y = P, USE PRATOM.          WRITE THE FUNCTION NAME.             HELP0078
+       LINE BUFFER = NIL, WRITE OUTPUT.                                 HELP0079
+       TO NEWR.                                                         HELP0080
+.                                                                       HELP0081
+.         ANALYZER FOR EXPRESSION.                                      HELP0082
+.                                                                       HELP0083
+REX,   USE FINPUT.                 READ NEXT ELEMENT.                   HELP0084
+EX,    TO SE IF Z NE 13.           NO IF MEANS A SIMPLE EXPRESSION.     HELP0085
+       PUSH DOWN T, CAR T = EX1.   ELSE SET THE RETURN ADDRESS AND      HELP0086
+       TO RSE.                     LOOK FOR A SIMPLE EXPRESSION WHICH   HELP0087
+.                                  STARTS WITH THE NEXT TOKEN.          HELP0088
+EX1,   PUSH DOWN R, CAR T = EX2.   SAVE SE1 AND RESET RETURN ADDRESS.   HELP0089
+       TO RSE IF Z = 14.           THEN LOOK FOR SE2, WHICH STARTS WITH HELP0090
+.                                  THE TOKEN FOLLOWING THEN.            HELP0091
+       1 = '1, 2 = '5, TO ERROR.   NO THEN                              HELP0092
+EX2,   PUSH DOWN R, CAR T = EX3.   SAVE SE2 AND RESET RETURN ADDRESS.   HELP0093
+       TO REX IF Z = 15.           LOOK FOR AN EXPRESSION, WHICH STARTS HELP0094
+.                                  WITH THE TOKEN FOLLOWING ELSE.       HELP0095
+       1 = '1, 2 = '6, TO ERROR.   NO ELSE                              HELP0096
+EX3,   W = CDR R, X = CDR W.       GRAB THE ELEMENTS ADDRESSING SE1 AND HELP0097
+       CDR R = CDR X.              SE2 AND REMOVE THEM FROM R.          HELP0098
+       CDR W = CAR R, CDR X = W.   REARRANGE THE ELEMENTS AS IN FIG 4.5 HELP0099
+       PUSH DOWN X, CAR X = L10.   SET THE EXPRESSION PROCESSOR ADDRESS.HELP0100
+RETX,  CAR R = X.                  MAKE THIS LIST THE RESULT            HELP0101
+RET,   POP UP T, TO CAR T.         AND GET OUT.                         HELP0102
+.                                                                       HELP0103
+.         ANALYZER FOR SIMPLE EXPRESSION                                HELP0104
+.                                                                       HELP0105
+RSE,   USE FINPUT.                 READ NEXT ELEMENT.                   HELP0106
+SE,    PUSH DOWN T, CAR T = SE1.   SET THE RETURN ADDRESS AND           HELP0107
+       TO LE.                      LOOK FOR A LOGICAL EXPRESSION.       HELP0108
+SE1,   TO SE2 IF Z = 16.           WAS IT FOLLOWED BY AND, YES          HELP0109
+       TO RET IF Z NE 17.          NO, HOW ABOUT OR, NO                 HELP0110
+       PUSH DOWN R, CAR R = L9.    YES, SET LE OR SE.                   HELP0111
+       TO SE3.                                                          HELP0112
+SE2,   PUSH DOWN R, CAR R = L8.    SET LE AND SE.                       HELP0113
+SE3,   PUSH DOWN R.                SAVE CURRENT STACK.                  HELP0114
+       CAR T = SE4, TO RSE.        LOOK FOR A SIMPLE EXPRESSION WHICH   HELP0115
+.                                  BEGINS WITH THE NEXT TOKEN.          HELP0116
+SE4,   W = CDR R, X = CDR W.       RESHUFFLE THE STACK.                 HELP0117
+       CDR R = CDR X.              REMOVE TWO ELEMENTS.                 HELP0118
+SE5,   CDR X = CAR R.              ATTACH SIMPLE EXPRESSION.            HELP0119
+       CAR R = W, TO RET.                                               HELP0120
+.                                                                       HELP0121
+.         ANALYZER FOR LOGICAL EXPRESSION                               HELP0122
+.                                                                       HELP0123
+RLE,   USE FINPUT.                 READ NEXT ELEMENT.                   HELP0124
+LE,    PUSH DOWN T.                MAKE ROOM FOR RETURN ADDRESS.        HELP0125
+       TO LE4 IF Z = 18.           DOES IT BEGIN WITH NOT, YES.         HELP0126
+       CAR T = LE1, TO PR.         NO, BUILD A PRIMARY.                 HELP0127
+LE1,   TO LE2 IF Z = 06.           WAS IT FOLLOWED BY =, YES.           HELP0128
+       TO RET IF Z NE 10.          NO, HOW ABOUT NOT EQUAL, NO.         HELP0129
+       PUSH DOWN R, CAR R = L7.    YES, SET UP P1 NOT EQUAL P2.         HELP0130
+       TO LE3.                                                          HELP0131
+LE2,   PUSH DOWN R, CAR R = L6.    SET UP P1 = P2.                      HELP0132
+LE3,   PUSH DOWN R.                SAVE CURRENT STACK.                  HELP0133
+       CAR T = SE4, TO RPR.        LOOK FOR A PRIMARY, WHICH STARTS     HELP0134
+.                                  WITH THE NEXT TOKEN.                 HELP0135
+LE4,   CAR T = LE5, TO RLE.        LOOK FOR LOGICAL EXPRESSION WHICH    HELP0136
+.                                  BEGINS WITH THE NEXT TOKEN.          HELP0137
+LE5,   X = NEW ELEMENT.            BUILD THE LOGICAL EXPRESSION.        HELP0138
+       CAR X = L5, CDR X = CAR R.                                       HELP0139
+       TO RETX.                                                         HELP0140
+.                                                                       HELP0141
+.         ANALYZER FOR PRIMARY                                          HELP0142
+.                                                                       HELP0143
+RPR,   USE FINPUT.                 GET NEXT ELEMENT.                    HELP0144
+PR,    TO PR4 IF Z = 01.           IS THE PRIMARY AN ATOM, YES.         HELP0145
+       TO PR5 IF Z = 02.           NO, IS IT AN IDENTIFIER, YES.        HELP0146
+       TO PR6 IF Z = 03.           NO, IS IT A FUNCTION CALL, YES.      HELP0147
+       TO PR15 IF Z = 04.          NO, IS IT A LIST, YES.               HELP0148
+       PUSH DOWN T, CAR T = PR1.   THE ONLY THING LEFT IS AN EXPRESSION HELP0149
+       TO REX IF Z = 07.           VERIFY THE OPENING PARENTHESIS.      HELP0150
+       1 = '1, 2 = '0, TO ERROR.   INVALID PRIMARY.                     HELP0151
+PR1,   TO PR2 IF Z = 08.           VERIFY THE CLOSING PARENTHESIS.      HELP0152
+       1 = '1, 2 = '4, TO ERROR.   MISSING PARENTHESIS.                 HELP0153
+PR2,   POP UP T.                   RESTORE THE RETURN ADDRESS.          HELP0154
+PR3,   USE FINPUT, TO CAR T.       GET THE TOKEN FOLLOWING THE PRIMARY. HELP0155
+PR4,   X = NEW ELEMENT.            BUILD ELEMENT FOR ATOM.              HELP0156
+       CAR X = L1, CDR X = CDR Y.                                       HELP0157
+       CAR R = X, TO PR3.          LEAVE IT AS THE RESULT.              HELP0158
+.                                                                       HELP0159
+.         BOUND VARIABLE                                                HELP0160
+.                                                                       HELP0161
+PR5,   Y = CDR Y, CAR R = Y.       LEAVE THE BVL POINTER AS THE RESULT. HELP0162
+       TO PR3 IF CAR Y = L4.       VERIFY THAT THE BOUND VARIABLE HAS   HELP0163
+.                                  BEEN DECLARED.                       HELP0164
+       1 = '1, 2 = '1, TO ERROR.   UNDECLARED IDENTIFIER.               HELP0165
+.                                                                       HELP0166
+.         FUNCTION CALL                                                 HELP0167
+.                                                                       HELP0168
+PR6,   CAR R = CDR Y, PUSH DOWN R. SAVE THE FUNCTION DEFINITION         HELP0169
+       USE FINPUT.                 CHECK FOR ARGUMENTS.                 HELP0170
+       TO PR14 IF Z = 08.          IF NONE, TREAT SPECIALLY.            HELP0171
+       PUSH DOWN T, CAR T = PR11.  ELSE COMPILE THE ARGUMENTS.          HELP0172
+.                                                                       HELP0173
+.         ANALYZE A LIST OF EXPRESSIONS                                 HELP0174
+.                                                                       HELP0175
+PR7,   CAR R = 'F, PUSH DOWN R.    FENCE OFF THE RESULT STACK.          HELP0176
+       PUSH DOWN T, CAR T = PR8.   SET A NEW RETURN ADDRESS.            HELP0177
+       TO EX.                      GO ANALYZE THE FIRST EXPRESSION.     HELP0178
+PR8,   TO PR9 IF Z NE 11.          QUIT UNLESS THERE IS A COMMA.        HELP0179
+       PUSH DOWN R, TO REX.        ELSE ANALYZE NEXT EXPRESSION.        HELP0180
+PR9,   X = NIL.                    REVERSE THE LIST                     HELP0181
+PR10,  W = X, X = R, R = CDR R.                                         HELP0182
+       CDR X = W.                                                       HELP0183
+       TO PR10 IF CAR R NE 'F.     CONTINUE TO THE FENCE.               HELP0184
+       PUSH DOWN X, TO RET.        ADD AN EMPTY ELEMENT AND GET OUT.    HELP0185
+.                                                                       HELP0186
+.         COMPLETE A FUNCTION CALL                                      HELP0187
+.                                                                       HELP0188
+PR11,  POP UP T.                   DROP THE EXTRA RETURN ADDRESS.       HELP0189
+       TO PR12 IF Z = 08.          VERIFY THE CLOSING PARENTHESIS.      HELP0190
+       1 = '1, 2 = '2, TO ERROR.   INVAILD SEPARATOR.                   HELP0191
+PR14,  X = NEW ELEMENT.            FUNCTION OF NO ARGUMENTS             HELP0192
+       CDR X = NIL.                                                     HELP0193
+PR12,  W = R, R = CDR R.           ADVANCE TO THE FUNCTION DEFINITION.  HELP0194
+       CAR X = CAR R.                                                   HELP0195
+       CAR W = L3, CDR W = X.      COMPLETE THE SUBSTRUCTURE.           HELP0196
+       CAR R = W, TO PR3.                                               HELP0197
+.                                                                       HELP0198
+.         ANALYZE A BRACKETED LIST                                      HELP0199
+.                                                                       HELP0200
+PR15,  USE FINPUT.                 CHECK FOR EMPTY LIST                 HELP0201
+       TO PR18 IF Z = 05.          TREAT THAT CASE SPECIALLY.           HELP0202
+       PUSH DOWN T, CAR T = PR16.  SAVE RETURN ADDRESS                  HELP0203
+       TO PR7.                     COMPILE THE LIST ELEMENTS.           HELP0204
+PR16,  POP UP T.                   DROP THE EXTRA RETURN ADDRESS.       HELP0205
+       TO PR17 IF Z = 05.          VERIFY CLOSING BRACKET.              HELP0206
+       1 = '1, 2 = '3, TO ERROR.   INVAILD SEPARATOR.                   HELP0207
+PR18,  X = NEW ELEMENT.            EMPTY LIST.                          HELP0208
+       CDR X = NIL.                                                     HELP0209
+PR17,  CAR X = L2, CAR R = X.      COMPLETE THE ELEMENT                 HELP0210
+       TO PR3.                                                          HELP0211
+.                                                                       HELP0212
+.         EVALUATE AN EXPRESSION JUST COMPILED                          HELP0213
+.                                                                       HELP0214
+EVAL,  TO L01 IF Z NE 09.          VERIFY SEMICOLON.                    HELP0215
+       (NIL) = 01.                 CLEAR THE LINE BUFFER FOR PRINTING.  HELP0216
+       E = CAR R.                  MOVE ONTO THE EXPRESSION.            HELP0217
+       S = NEW ELEMENT.            START WITH A CLEAN STACK.            HELP0218
+       CAR S = NIL, CDR S = NIL.                                        HELP0219
+       CAR T = L0, TO CAR E.       GO DO THE WORK.                      HELP0220
+L0.                                                                     HELP0221
+       Y = CAR R, USE PRLIST.      OUTPUT THE RESULTS.                  HELP0222
+       LINE BUFFER = NIL.          PUT OUT THE LAST LINE.               HELP0223
+       WRITE OUTPUT.                                                    HELP0224
+       TO NEXTE.                                                        HELP0225
+L01,   1 = '1, 2 = '7.             MISSING SEMICOLON.                   HELP0226
+ERROR, TO NONE IF (NIL) = 01.      CHECK FOR NO CHARACTERS READ.        HELP0227
+       Y = (NIL), (NIL) = 01.      ELSE PRINT DASHES FOR THOSE READ.    HELP0228
+DASH,  LINE BUFFER = '-.                                                HELP0229
+       TO DASH IF (NIL) LT Y.                                           HELP0230
+NONE,  WRITE OUTPUT.                                                    HELP0231
+       TO MESSG IF Z = 09.         SKIP TO SEMICOLON.                   HELP0232
+SKPS,  USE FINPUT.                                                      HELP0233
+       TO SKPS IF Z NE 09.                                              HELP0234
+MESSG, (NIL) = 01.                 SET UP A FAILURE MESSAGE             HELP0235
+       LINE BUFFER = 'E.                                                HELP0236
+       LINE BUFFER = 'R.                                                HELP0237
+       LINE BUFFER = 'R.                                                HELP0238
+       LINE BUFFER = 'O.                                                HELP0239
+       LINE BUFFER = 'R.                                                HELP0240
+       LINE BUFFER = ' .                                                HELP0241
+       LINE BUFFER = 1.            FAILURE NUMBER                       HELP0242
+       LINE BUFFER = 2.                                                 HELP0243
+       LINE BUFFER = NIL.                                               HELP0244
+       WRITE OUTPUT.               WRITE THE MESSAGE.                   HELP0245
+       TO IFAIL IF 1 = ' .         PRINT ASSOCIATION LIST ON INTERPRETERHELP0246
+       TO SKIPL.                   FAILURE, ELSE JUST SKIP 2 LINES.     HELP0247
+NXCALL,Y = CAR Q, USE PRATOM.      PRINT THE FUNCTION NAME              HELP0248
+       LINE BUFFER = '(.           OPEN THE ARGUMENT LIST.              HELP0249
+       TO FSTRG IF (NIL) NE 00.    CHECK FOR FULL LINE BUFFER           HELP0250
+       WRITE OUTPUT, (NIL) = 01.   AND IF SO, WRITE IT.                 HELP0251
+FSTRG, POP UP Q, Y = CAR Q.        GO TO FIRST ARGUMENT.                HELP0252
+       TO PARG IF Y NE 'F.         VERIFY AN ARGUMENT                   HELP0253
+       TO ENDAL.                   IF NONE, QUIT.                       HELP0254
+SEP,   LINE BUFFER = ',.           PRINT SEPARATOR.                     HELP0255
+       TO PARG IF (NIL) NE 00.                                          HELP0256
+       WRITE OUTPUT, (NIL) = 01.                                        HELP0257
+PARG,  Y = CDR Y, USE PRLIST.      PRINT ARGUMENT.                      HELP0258
+       POP UP Q, Y = CAR Q.        GO TO THE NEXT ONE.                  HELP0259
+       TO SEP IF Y NE 'F.          VERIFY AN ARGUMENT                   HELP0260
+ENDAL, POP UP Q.                   REMOVE THE FENCE                     HELP0261
+       LINE BUFFER = ').           PRINT THE TERMINATOR                 HELP0262
+       LINE BUFFER = NIL.          FINISH THE LINE.                     HELP0263
+       WRITE OUTPUT.                                                    HELP0264
+IFAIL, TO NXCALL IF CDR Q NE NIL.  CHECK FOR FURTHER FUNCTION CALLS.    HELP0265
+SKIPL, LINE BUFFER = NIL.          SKIP TWO LINES.                      HELP0266
+       WRITE OUTPUT, WRITE OUTPUT.                                      HELP0267
+       TO NEXTE.                                                        HELP0268
+FAIL,  1 = ' , TO MESSG.           INTERPRETER ERROR.                   HELP0269
+.                                                                       HELP0270
+L1.                EVALUATE AN ATOM.                                    HELP0271
+.                                                                       HELP0272
+       CAR R = CDR E.              SET UP THE RESULT.                   HELP0273
+       TO CAR T.                   RETURN TO THE LAST CALLER.           HELP0274
+.                                                                       HELP0275
+L2.                EVALUATE A LIST                                      HELP0276
+.                                                                       HELP0277
+       TO L21 IF CDR E NE NIL.     IS THE LIST EMPTY, NO.               HELP0278
+       CAR R = NIL, TO CAR T.      YES, THE VALUE IS NIL.               HELP0279
+L21,   PUSH DOWN T, CAR T = L22.   SET THE RETURN ADDRESS               HELP0280
+       TO C23.                     GO EVALUATE THE LIST OF EXPRESSIONS. HELP0281
+L22,   X = NIL.                    RESHUFFLE THE RESULT STACK.          HELP0282
+L23,   W = R, R = CDR R.           DETACH FIRST ELEMENT.                HELP0283
+       CDR W = X, X = W.           ATTACH TO FRONT OF RESULT.           HELP0284
+       TO L23 IF CAR R NE 'F.      CONTINUE IF NOT AT THE FENCE.        HELP0285
+       TO RETX.                                                         HELP0286
+.                                                                       HELP0287
+L3.                EVALUATE A FUNCTION CALL                             HELP0288
+.                                                                       HELP0289
+       E = CDR E, W = CAR E.       MOVE ONTO THE FUNCTION.              HELP0290
+       TO L322 IF CAR W = NIL.     MAKE SURE THAT IT HAS BEEN DEFINED.  HELP0291
+       PUSH DOWN T.                SPACE FOR RETURN ADDRESS.            HELP0292
+       TO L331 IF CDR E = NIL.     CHECK TO SEE IF THERE ARE ARGUMENTS. HELP0293
+       PUSH DOWN S, CAR S = W.     IF SO, THEN SAVE THE FUNCTION NAME   HELP0294
+       CAR T = L31.                AND EVALUATE THE ARGUMENTS.          HELP0295
+.                                                                       HELP0296
+.                  COMMON CODE FOR EVALUATING A LIST OF EXPRESSIONS     HELP0297
+.                                                                       HELP0298
+C23.                               USED BY BOTH L2 AND L3.              HELP0299
+       E = CDR E.                  ADVANCE TO THE FIRST EXPRESSION.     HELP0300
+       CAR R = 'F.                 SET THE FENCE ON R.                  HELP0301
+       PUSH DOWN S.                SAVE SPACE FOR AN EXPRESSION POINTER HELP0302
+       PUSH DOWN T, CAR T = C232.  SET THE RETURN ADDRESS.              HELP0303
+C231,  PUSH DOWN R.                SAVE VALUE OF THE PREVIOUS EXPRESSIONHELP0304
+       CAR S = CDR E.              SAVE A POINTER TO THE NEXT EXPRESSIONHELP0305
+ECARE, E = CAR E, TO CAR E.        EVALUATE IT.                         HELP0306
+C232,  E = CAR S.                  RECALL THE EXPRESSION POINTER.       HELP0307
+       TO C231 IF E NE NIL.        ARE THERE MORE EXPRESSIONS, YES.     HELP0308
+       POP UP S, TO RET.           NO, REMOVE THE EXPRESSION POINTER.   HELP0309
+.                                                                       HELP0310
+L31.               RETURN FROM EVALUATING ARGUMENTS.                    HELP0311
+.                                                                       HELP0312
+       W = CAR S, POP UP S.        RECALL THE FUNCTION NAME.            HELP0313
+       E = CAR W, Y = CDR E.       SET Y ONTO THE BOUND VARIABLES       HELP0314
+       TO CAR E IF Y = 'F.         EVALUATE A BUILT-IN FUNCTION NOW.    HELP0315
+       PUSH DOWN Q, CAR Q = 'F.    SET A FENCE ON THE ASSOCIATION LIST. HELP0316
+.                                                                       HELP0317
+L32.               SET UP NEW ASSOCIATIONS FOR THE BOUND VARIABLES      HELP0318
+.                                                                       HELP0319
+       TO L321 IF Y = NIL.         ERROR IF TOO MANY ARGUMENTS.         HELP0320
+       Z = R, R = CDR R.           GET THE VALUE OF THE NEXT ARGUMENT   HELP0321
+       CDR Z = CAR Z, CAR Z = Y.   AND ASSOCIATE THE BOUND VARIABLE.    HELP0322
+       PUSH DOWN Q, CAR Q = Z.     ADD THE PAIR TO THE ASSOCIATION LIST.HELP0323
+       Y = CDR Y.                  ADVANCE TO THE NEXT BOUND VARIABLE.  HELP0324
+       TO L32 IF CAR R NE 'F.      ARE THERE MORE ARGUMENTS, YES.       HELP0325
+       TO L321 IF Y NE NIL.        FAIL IF TOO FEW ARGUMENTS.           HELP0326
+.                                                                       HELP0327
+L33.               EVALUATE A USER-DEFINED FUNCTION                     HELP0328
+.                                                                       HELP0329
+       PUSH DOWN Q, CAR Q = W.     FUNCTION NAME FOR DIAGNOSTICS        HELP0330
+       CAR T = L332, TO ECARE.     GO EVALUATE THE FUNCTION.            HELP0331
+L331,  E = CAR W.                  ENTRY FOR CALL WITH NO ARGUMENTS.    HELP0332
+       PUSH DOWN Q, CAR Q = 'F.    SET A FENCE ON THE ASSOCIATION LIST. HELP0333
+       TO L33 IF CDR E = NIL.      VERIFY ABSENCE OF BOUND VARIABLES.   HELP0334
+L321,  PUSH DOWN Q, CAR Q = W.     FUNCTION NAME FOR DIAGNOSTIC.        HELP0335
+       2 = '0, TO FAIL.            ARGUMENT DISAGREEMENT.               HELP0336
+L322,  PUSH DOWN Q, CAR Q = 'F.    SET A FENCE ON THE ASSOCIATION LIST. HELP0337
+       TO L321.                    OUTPUT THE ERROR MESSAGE.            HELP0338
+L332,  POP UP Q, TO L332 IF CAR Q NE 'F.   CLEAN OUT ASSOCIATION LIST.  HELP0339
+       POP UP Q, TO RET.                                                HELP0340
+.                                                                       HELP0341
+L4.                EVALUATE A BOUND VARIABLE                            HELP0342
+.                                                                       HELP0343
+       Z = Q.                      SET A POINTER ONTO THE ASSOC. LIST.  HELP0344
+L41,   Z = CDR Z, Y = CAR Z.       POINT TO THE NEXT MEMBER.            HELP0345
+       TO L41 IF CAR Y NE E.       CHECK AGAINST BOUND VARIABLE ADDRESS HELP0346
+       CAR R = CDR Y.              IF EQUAL, PICK UP VALUE,             HELP0347
+       TO CAR T.                   AND RETURN TO CALLER.                HELP0348
+.                                                                       HELP0349
+L5.                NEGATE A LOGICAL EXPRESSION                          HELP0350
+.                                                                       HELP0351
+       PUSH DOWN T, CAR T = L51.   SAVE THE RETURN ADDRESS.             HELP0352
+ECDRE, E = CDR E, TO CAR E.        EVALUATE THE LOGICAL EXPRESSION.     HELP0353
+L51,   TO L53 IF CAR R = (FALSE).  DO THE NEGATION.                     HELP0354
+       TO L52 IF CAR R = (TRUE).                                        HELP0355
+       2 = '6, TO FAIL.            VALUE NOT LOGICAL.                   HELP0356
+L52,   CAR R = (FALSE), TO RET.    ELSE SET RESULT *FALSE               HELP0357
+L53,   CAR R = (TRUE), TO RET.     SET RESULT *TRUE.                    HELP0358
+.                                                                       HELP0359
+L6.                EVALUATE P1 = P2                                     HELP0360
+.                                                                       HELP0361
+       PUSH DOWN T, CAR T = L61.   SET THE RETURN ADDRESS.              HELP0362
+.                                                                       HELP0363
+.                  COMMON CODE FOR THE EVALUATION OF TWO PRIMARIES      HELP0364
+.                                                                       HELP0365
+C67.                               USED BY BOTH L6 AND L7.              HELP0366
+       E = CDR E.                  ADVANCE TO THE PRIMARIES.            HELP0367
+       PUSH DOWN S, CAR S = CDR E. SAVE POINTER TO P2.                  HELP0368
+       PUSH DOWN T, CAR T = C671.  SET RETURN ADDRESS.                  HELP0369
+       TO ECARE.                   EVALUATE P1.                         HELP0370
+C671,  E = CAR R.                  CHECK VALUE OF P1, IF                HELP0371
+       TO FAIL4 IF AF E = 00.      NOT AN ATOM RETURN UNDEFINED.        HELP0372
+       PUSH DOWN R.                ELSE SAVE VALUE OF P1.               HELP0373
+       E = CAR S, POP UP S.        RESTORE POINTER TO P2.               HELP0374
+       CAR T = C672, TO CAR E.     SAVE RETURN AND EVALUATE P2.         HELP0375
+FAIL4, 2 = '4, TO FAIL.            LIST COMPARISON.                     HELP0376
+C672,  E = CAR R, POP UP R.        SET UP THE TWO PRIMARIES.            HELP0377
+       TO RET IF AF E = 01.        VERIFY THAT THE SECOND IS AN ATOM.   HELP0378
+       2 = '5, TO FAIL.            LIST COMPARISON.                     HELP0379
+.                                                                       HELP0380
+.                                 CONTINUE PROCESSING P1 = P2.          HELP0381
+.                                                                       HELP0382
+L61,   TO L53 IF CAR R = E, TO L52.    SET THE PROPER LOGICAL VALUE.    HELP0383
+.                                                                       HELP0384
+L7.                EVALUATE P1 NE P2.                                   HELP0385
+.                                                                       HELP0386
+       PUSH DOWN T, CAR T = L71.   SAVE THE RETURN ADDRESS.             HELP0387
+       TO C67.                     EVALUATE THE TWO PRIMARIES.          HELP0388
+L71,   TO L53 IF CAR R NE E, TO L52.   SET THE PROPER LOGICAL VALUE.    HELP0389
+.                                                                       HELP0390
+L8.                EVALUATE LE AND SE                                   HELP0391
+.                                                                       HELP0392
+       PUSH DOWN T, CAR T = L81.   SAVE THE RETURN ADDRESS.             HELP0393
+       TO L101.                    GO EVALUATE THE LE.                  HELP0394
+L81,   E = CAR S, POP UP S.        RESTORE TEMPORARY.                   HELP0395
+       TO RET IF CAR R = (FALSE).  EXPRESSION IS FALSE IF LE IS FALSE.  HELP0396
+       TO L92 IF CAR R NE (TRUE).  QUIT IF VALUE IS NOT LOGICAL.        HELP0397
+.                                                                       HELP0398
+L82.               VALUE OF EXPRESSION IS VALUE OF SE.                  HELP0399
+.                                                                       HELP0400
+       CAR T = L83, TO CAR E.                                           HELP0401
+L83,   TO RET IF CAR R = (TRUE).   ENSURE A LOGICAL VALUE.              HELP0402
+       TO RET IF CAR R = (FALSE).                                       HELP0403
+       2 = '8, TO FAIL.            VALUE NOT LOGICAL.                   HELP0404
+.                                                                       HELP0405
+L9.                EVALUATE LE OR SE                                    HELP0406
+.                                                                       HELP0407
+       PUSH DOWN T, CAR T = L91.   SAVE THE RETURN ADDRESS.             HELP0408
+       TO L101.                    GO EVALUATE THE LE.                  HELP0409
+L91,   E = CAR S, POP UP S.        RESTORE TEMPORARY                    HELP0410
+       TO RET IF CAR R = (TRUE).   EXPRESSION IS TRUE IF LE IS TRUE.    HELP0411
+       TO L82 IF CAR R = (FALSE).  EXPRESSION IS THE VALUE OF SE IF LE  HELP0412
+.                                  IS FALSE.                            HELP0413
+L92,   2 = '7, TO FAIL.            VALUE NOT LOGICAL.                   HELP0414
+.                                                                       HELP0415
+L10.               EVALUATE AN EXPRESSION.                              HELP0416
+.                                                                       HELP0417
+       PUSH DOWN T, CAR T = L102.  SET UP THE RETURN                    HELP0418
+L101,  E = CDR E.                  ADVANCE ONTO THE EXPRESSION.         HELP0419
+       PUSH DOWN S, CAR S = CDR E. SAVE THE CURRENT POSITION            HELP0420
+       TO ECARE.                   GO EVALUATE SE.                      HELP0421
+L102,  E = CAR S, POP UP S.        RECALL THE REMAINING EXPRESSIONS     HELP0422
+       POP UP T.                   RECALL THE RETURN ADDRESS.           HELP0423
+       TO ECARE IF CAR R = (TRUE). COMPLETE THE EVALUATION USING SE2.   HELP0424
+       TO ECDRE IF CAR R = (FALSE).COMPLETE THE EVALUATION USING E.     HELP0425
+       2 = '9, TO FAIL.            VALUE NOT LOGICAL.                   HELP0426
+.                                                                       HELP0427
+L11.               EVALUATE THE BUILT-IN FUNCTION CAR                   HELP0428
+.                                                                       HELP0429
+       Z = CAR R, POP UP R.        GRAB THE ARGUMENT                    HELP0430
+       TO L111 IF CAR R NE 'F.     INCORRECT NUMBER OF ARGUMENTS.       HELP0431
+       CAR R = CAR Z.              SET THE RESULT.                      HELP0432
+       TO RET IF AF Z = 00.        THE ARGUMENT MUST BE A LIST.         HELP0433
+L111,  2 = '1, TO FAIL.            INVALID ARGUMENT FOR CAR.            HELP0434
+.                                                                       HELP0435
+L12.               EVALUATE THE BUILT-IN FUNCTION CDR.                  HELP0436
+.                                                                       HELP0437
+       Z = CAR R, POP UP R.        GRAB THE ARGUMENT                    HELP0438
+       TO L121 IF CAR R NE 'F.     INCORRECT NUMBER OF ARGUMENTS.       HELP0439
+       CAR R = CDR Z.              SET THE RESULT.                      HELP0440
+       TO RET IF AF Z = 00.        THE ARGUMENT MUST BE A LIST.         HELP0441
+L121,  2 = '2, TO FAIL.            INVALID ARGUMENT FOR CDR.            HELP0442
+.                                                                       HELP0443
+L13.               EVALUATE THE BUILT-IN FUNCTION CONS.                 HELP0444
+.                                                                       HELP0445
+       Z = CAR R, POP UP R.        GRAB SECOND ARGUMENT OF CONS.        HELP0446
+       TO L131 IF CAR R = 'F.      INCORRECT NUMBER OF ARGUMENTS.       HELP0447
+       E = R, R = CDR R.           GRAB ELEMENT WITH FIRST ARG. IN CAR  HELP0448
+       TO L131 IF CAR R NE 'F.     INCORRECT NUMBER OF ARGUMENTS.       HELP0449
+       CDR E = Z.                  PLACE SECOND ARGUMENT IN CDR.        HELP0450
+       CAR R = E.                  RESULT GOES TO RESULT STACK.         HELP0451
+       TO RET IF Z = NIL.          RETURN IF SECOND ARGUMENT IS         HELP0452
+       TO RET IF AF Z = 00.        LEGAL (I.E. A LIST).                 HELP0453
+L131,  2 = '3, TO FAIL.            INVALID ARGUMENT FOR CONS.           HELP0454
+.                                                                       HELP0455
+L14.               EVALUATE THE BUILT-IN FUNCTION ATOM                  HELP0456
+.                                                                       HELP0457
+       Z = CAR R, POP UP R.        GRAB THE ARGUMENT                    HELP0458
+       TO L321 IF CAR R NE 'F.     INCORRECT NUMBER OF ARGUMENTS.       HELP0459
+       TO L142 IF AF Z = 00.       IS THE ARGUMENT AN ATOM, NO.         HELP0460
+L141,  CAR R = (TRUE), TO RET.     YES, VALUE OF FUNCTION IS TRUE.      HELP0461
+L142,  CAR R = (FALSE), TO RET.    VALUE OF FUNCTION IS FALSE.          HELP0462
+.                                                                       HELP0463
+L15.               EVALUATE THE BUILT-IN FUNCTION NULL                  HELP0464
+.                                                                       HELP0465
+       Z = CAR R, POP UP R.        GRAB THE ARGUMENT                    HELP0466
+       TO L321 IF CAR R NE 'F.     INCORRECT NUMBER OF ARGUMENTS.       HELP0467
+       TO L141 IF Z = NIL, TO L142.CHECK FOR THE EMPTY LIST.            HELP0468
+.                                                                       HELP0469
+.                                                                       HELP0470
+.                                                                       HELP0471
+       ENTRY FINPUT.               SUBROUTINE ENTRY POINT.              HELP0472
+       TO SKIP IF (CHAR) NE NIL.   DID WE READ AHEAD, YES.              HELP0473
+       USE NEXTCH.                 NO, GET NEXT CHARACTER.              HELP0474
+SKIP,  TO ATOM IF (CHAR) = '*.     ATOMS BEGIN WITH *.                  HELP0475
+       TO IDFN IF (CHAR) = LETORDIG.   IDENTIFIER OR FUNCTION.          HELP0476
+       TO MULT IF (CHAR) = ''.     MULTIPLE CHARACTER SYMBOL.           HELP0477
+       TO LBKTC IF (CHAR) = '<.                                         HELP0478
+       TO RBKTC IF (CHAR) = '>.                                         HELP0479
+       TO SEMIC IF (CHAR) = ';.                                         HELP0480
+       TO MULT IF (CHAR) = ':.                                          HELP0481
+       TO RPAR IF (CHAR) NE '(.    CHECK SINGLE CHARACTER SYMBOLS.      HELP0482
+       Z = 07, TO NOCH.            LEFT PAREN.                          HELP0483
+RPAR,  TO COMM IF (CHAR) NE ').                                         HELP0484
+       Z = 08, TO NOCH.            RIGHT PAREN.                         HELP0485
+COMM,  TO EQUL IF (CHAR) NE ',.                                         HELP0486
+       Z = 11, TO NOCH.            COMMA.                               HELP0487
+EQUL,  TO ERRC IF (CHAR) NE '=.                                         HELP0488
+       Z = 06, TO NOCH.            EQUALS.                              HELP0489
+ERRC,  Z = 00.                     SET TYPE TO ZERO.                    HELP0490
+NOCH,  (CHAR) = NIL, EXIT FINPUT.  NO READ AHEAD.                       HELP0491
+ATOM,  USE NEXTCH, USE READST.     READ IN THE ATOM STRING.             HELP0492
+       D = 'A, M = 'X.             SET UP THE ATOM DICTIONARY.          HELP0493
+       USE LOOKUP.                                                      HELP0494
+       TO BAKA IF CDR Y NE NIL.    HAVE WE SEEN THIS ATOM, YES.         HELP0495
+       Z = NEW ELEMENT, CDR Y = Z. NO, ATTACH A NEW BASE REGISTER.      HELP0496
+       AF Z = 01.                  SET THE ATOM FLAG.                   HELP0497
+       X = NIL, CAR Z = CAR X.     ATTACH THE BASE REGISTER CHAIN.      HELP0498
+       CAR X = Z.                  COMPLETE THE BASE REGISTER CHAIN.    HELP0499
+       CDR Z = S.                  SET THE BACK POINTER.                HELP0500
+BAKA,  Z = 01, EXIT FINPUT.        RETURN ATOM INDICATOR.               HELP0501
+IDFN,  USE READST.                 READ IN THE STRING.                  HELP0502
+       D = BASIC, M = NIL.         SET UP THE BASIC SYMBOL DICTIONARY.  HELP0503
+       USE LOOKUP.                                                      HELP0504
+       TO BSYM IF Y NE NIL.        IS IT A BASIC SYMBOL, YES.           HELP0505
+       TO FUNC IF (CHAR) = '(.     NO, IS IT A FUNCTION, YES.           HELP0506
+       D = 'V, M = 'X.             NO, IT IS A SIMPLE IDENTIFIER.       HELP0507
+       USE LOOKUP.                                                      HELP0508
+       Z = 02, EXIT FINPUT.        RETURN A VARIABLE.                   HELP0509
+BSYM,  Z = CDR Y, EXIT FINPUT.     RETURN THE TYPE CODE FOR THE SYMBOL. HELP0510
+FUNC,  D = 'F, M = 'X.             SET UP THE FUNCTION DICTIONARY.      HELP0511
+       USE LOOKUP.                                                      HELP0512
+       TO BAKF IF CDR Y NE NIL.    NO ACTION IF AN OLD FUNCTION.        HELP0513
+       Z = NEW ELEMENT, CDR Y = Z. ELSE ATTACH DEFINITION ELEMENT.      HELP0514
+       CAR Z = NIL, CDR Z = S.     SET FUNCTION UNDEFINED, SET BACK PTR HELP0515
+BAKF,  Z = 03, TO NOCH.            RETURN THE CODE FOR A FUNCTION.      HELP0516
+MULT,  USE NEXTCH.                 CHECK THE CHARACTER AFTER (').       HELP0517
+       TO RBKT IF (CHAR) NE '(.                                         HELP0518
+LBKTC, Z = 04, TO NOCH.      LEFT LIST BRACKET.                         HELP0519
+RBKT,  TO SEMI IF (CHAR) NE ').                                         HELP0520
+RBKTC, Z = 05, TO NOCH.      RIGHT LIST BRACKET.                        HELP0521
+SEMI,  TO ASGN IF (CHAR) NE ',.                                         HELP0522
+SEMIC, Z = 09, TO NOCH.      SEMICOLON.                                 HELP0523
+ASGN,  TO ERRC IF (CHAR) NE '=.                                         HELP0524
+ASGNC, Z = 19, TO NOCH.      ASSIGNMENT.                                HELP0525
+.                                                                       HELP0526
+.                                                                       HELP0527
+.                                                                       HELP0528
+       ENTRY LOOKUP.               SUBROUTINE ENTRY POINT               HELP0529
+       Z = S.                      SET SYMBOL POINTER.                  HELP0530
+NEXT,  TO ABSENT IF CDR D = NIL.   CHECK FOR END OF DICTIONARY          HELP0531
+       D = CDR D, Y = CAR D.       IF NOT, GET NEXT ENTRY.              HELP0532
+CHECK, TO NEXT IF CAR Y NE CAR Z.  CHECK FOR MISMATCH.                  HELP0533
+       TO BACK IF CAR Y = NIL.     CHECK FOR COMPLETE SYMBOL.           HELP0534
+STEP,  Y = CDR Y, Z = CDR Z.       IF NOT STEP ALONG.                   HELP0535
+       TO CKSUB IF CAR Y NE CAR Z. CHECK FOR MISMATCH.                  HELP0536
+       TO STEP IF CAR Y NE NIL.    CHECK FOR COMPLETE SYMBOL.           HELP0537
+       EXIT LOOKUP.                IF FOUND, EXIT WITH IT.              HELP0538
+CKSUB, D = Y, Y = CAR D.           CHECK FOR SUB-DICTIONARY.            HELP0539
+       TO CHECK IF AF Y = 00.      IF SO, SEARCH IT.                    HELP0540
+       TO NONSRT IF M = NIL.       ELSE TRY INSERTING SYMBOL.           HELP0541
+       Y = NEW ELEMENT.                                                 HELP0542
+       CAR Y = CAR D, CDR Y = CDR D.   SAVE THE CURRENT CHAR + POINTER. HELP0543
+       CAR D = Y.                  ATTACH AS A SUB-DICTIONARY ENTRY.    HELP0544
+INSERT,CDR D = NEW ELEMENT.        EXTEND THE SUBDICTIONARY.            HELP0545
+       D = CDR D, CDR D = NIL.                                          HELP0546
+       CAR D = Z, Y = 'Z.          ATTACH SYMBOL                        HELP0547
+TOEND, Y = CDR Y.                  STEP DOWN SYMBOL.                    HELP0548
+       TO TOEND IF CAR Y NE NIL.   CHECK FOR TERMINATOR.                HELP0549
+BACK,  EXIT LOOKUP.                RETURN WITH TERMINATOR.              HELP0550
+ABSENT,TO INSERT IF M NE NIL.      CAN WE INSERT, YES.                  HELP0551
+NONSRT,Y = NIL, EXIT LOOKUP.       NO, INDICATE SYMBOL ABSENT.          HELP0552
+.                                                                       HELP0553
+.                                                                       HELP0554
+.                                                                       HELP0555
+       ENTRY READST.               SUBROUTINE ENTRY POINT.              HELP0556
+       C = CHAR.                   SPACES ARE SIGNIFICANT.              HELP0557
+       Z = 'S, TO LOOP1.           SET TRAVELLING POINTER.              HELP0558
+STAR,  CAR Z = ' .                 REPLACE ASTERISK WITH SPACE.         HELP0559
+LOOP,  USE NEXTCH.                 READ NEXT SIGNIFICANT CHARACTER.     HELP0560
+LOOP1, CDR Z = NEW ELEMENT.        ADD ONE ELEMENT.                     HELP0561
+       Z = CDR Z, CAR Z = (CHAR).  GRAB THE CHARACTER.                  HELP0562
+       TO LOOP IF (CHAR) = LETORDIG.   CONTINUE IF LETTER OR DIGIT.     HELP0563
+       TO STAR IF (CHAR) = '*.     ASTERISK IS OK TOO.                  HELP0564
+       CAR Z = NIL, CDR Z = NIL.   ELSE CLEAN OUT LAST ELEMENT.         HELP0565
+       C = ' .                     SPACES ARE NO LONGER SIGNIFICANT.    HELP0566
+       TO GOTCH IF (CHAR) NE ' .   MAKE SURE WE HAVE A SIGNIFICANT CHAR HELP0567
+       USE NEXTCH.                                                      HELP0568
+GOTCH, EXIT READST.                RETURN.                              HELP0569
+.                                                                       HELP0570
+.                                                                       HELP0571
+.                                                                       HELP0572
+       ENTRY NEXTCH.               GET NEXT SIGNIFICANT CHARACTER.      HELP0573
+GETCH, (CHAR) = LINE BUFFER.                                            HELP0574
+CKCHR, TO GETCH IF (CHAR) = C.     CHECK FOR SIGNIFICANT CHARACTER.     HELP0575
+       TO NEWL IF (CHAR) = NIL.    IF THE LINE IS EMPTY, GET ANOTHER.   HELP0576
+       EXIT NEXTCH.                                                     HELP0577
+NEWL,  READ INPUT.                 GET THE NEXT INPUT LINE.             HELP0578
+       TO QUIT IF (INPUT) NE 00.   GET OUT IF THERE IS TROUBLE.         HELP0579
+       WRITE OUTPUT.               OTHERWISE PRINT THE LINE.            HELP0580
+       (NIL) = 01.                 RESET THE BUFFER                     HELP0581
+       (CHAR) = ' , TO CKCHR.      CARRIAGE RETURN ACTS LIKE SPACE.     HELP0582
+QUIT,  STOP.                       EOF TERMINATION.                     HELP0583
+.                                                                       HELP0584
+.                                                                       HELP0585
+.                                                                       HELP0586
+       ENTRY PRLIST.               SUBROUTINE ENTRY POINT               HELP0587
+       TO NOATOM IF AF Y = 00.     CHECK FOR ATOM                       HELP0588
+       USE PRATOM.                 IF SO, PRINT IT                      HELP0589
+       EXIT PRLIST.                AND GET OUT                          HELP0590
+NOATOM,X = 'Y.                     ELSE SET TRAVELLING POINTER          HELP0591
+LIST,  PUSH DOWN S.                SAVE THE TRAVELLING POINTER          HELP0592
+       CAR S = X.                  ON STACK S                           HELP0593
+       X = Y, LINE BUFFER = '(.    START OF NEW LIST                    HELP0594
+       TO NEXOUT IF (NIL) NE 00.   CHECK FOR FULL BUFFER                HELP0595
+       WRITE OUTPUT, (NIL) = 01.   IF SO, WRITE IT OUT                  HELP0596
+NEXOUT,Y = CAR X.                  CHECK THE NEXT CAR                   HELP0597
+       TO LIST IF AF Y = 00.       IS IT A LIST, YES                    HELP0598
+       USE PRATOM.                 NO, PRINT IT OUT.                    HELP0599
+ADV,   TO ENDLIS IF CDR X = NIL.   AN ELEMENT HAS BEEN COMPLETED        HELP0600
+       LINE BUFFER = ',.           IF NOT END LIST, PRINT COMMA         HELP0601
+       TO STEP1 IF (NIL) NE 00.    CHECK FOR FULL BUFFER                HELP0602
+       WRITE OUTPUT, (NIL) = 01.   IF SO, WRITE IT OUT                  HELP0603
+STEP1, X = CDR X, TO NEXOUT.       ADVANCE TO THE NEXT ELEMENT          HELP0604
+ENDLIS,LINE BUFFER = ').           INDICATE THE END OF A LIST           HELP0605
+       TO POPUP IF (NIL) NE 00.    CHECK FOR FULL BUFFER                HELP0606
+       WRITE OUTPUT, (NIL) = 01.   IF SO, WRITE IT OUT                  HELP0607
+POPUP, X = CAR S.                  RECALL THE POINTER TO AN             HELP0608
+       POP UP S.                   UNFINISHED LIST                      HELP0609
+       TO ADV IF AF X = 00.        ARE WE DONE, NO                      HELP0610
+       EXIT PRLIST.                YES, GET OUT.                        HELP0611
+.                                                                       HELP0612
+.                                                                       HELP0613
+.                                                                       HELP0614
+       ENTRY PRATOM.               SUBROUTINE ENTRY POINT.              HELP0615
+       TO ADV1 IF Y NE NIL.        TREAT THE EMPTY LIST SPECIALLY.      HELP0616
+       Y = NILAT, TO NOTEND.                                            HELP0617
+ADV1,  Y = CDR Y.                  GO TO NEXT CHARACTER                 HELP0618
+CHECK1,TO NOTEND IF CAR Y NE NIL.  IS THIS THE END, NO                  HELP0619
+       EXIT PRATOM.                YES, RETURN                          HELP0620
+NOTEND,Z = CAR Y.                  CHECK FOR SUB-DICTIONARY             HELP0621
+       TO PRINT IF AF Z = 01.      IF NOT, IT IS A CHARACTER            HELP0622
+       Y = Z, TO CHECK1.           ELSE GO TO FIRST ENTRY               HELP0623
+PRINT, LINE BUFFER = Z.            ENTER CHARACTER INTO LINE BUFFER     HELP0624
+       TO ADV1 IF (NIL) NE 00.     IF NOT FULL, CONTINUE.               HELP0625
+       WRITE OUTPUT.               ELSE WRITE IT OUT                    HELP0626
+       (NIL) = 01, TO ADV.         RESET BUFFER AND GO ON               HELP0627
+.                                                                       HELP0628
+.                  DATA ELEMENTS                                        HELP0629
+.                                                                       HELP0630
+CHAR,  ELEMENT 00 00 01 NIL.       BUFFER.                              HELP0631
+INPUT, ELEMENT 00 00 01 00.        INPUT CHANNEL SPECIFIER.             HELP0632
+OUTPUT,ELEMENT 00 00 04 00.        PRINT CHANNEL SPECIFIER.             HELP0633
+FALSE, ELEMENT 00 00 00 00.        POINTER TO HELP ATOM *FALSE.         HELP0634
+TRUE,  ELEMENT 00 00 00 00.        POINTER TO HELP ATOM *TRUE.          HELP0635
+BASIC, ELEMENT 01 00 00 B1.        BASE OF BASIC SYMBOL DICTIONARY.     HELP0636
+B1,    ELEMENT 00 00 B11 B2.       AND                                  HELP0637
+B2,    ELEMENT 00 00 B21 B3.       DEF                                  HELP0638
+B3,    ELEMENT 00 00 B31 B4.       ELSE                                 HELP0639
+B4,    ELEMENT 00 00 B41 B5.       IF                                   HELP0640
+B5,    ELEMENT 00 00 B51 B6.       NE, NOT                              HELP0641
+B6,    ELEMENT 00 00 B61 B7.       OR                                   HELP0642
+B7,    ELEMENT 00 00 B71 NIL.      THEN                                 HELP0643
+B11,   ELEMENT 00 00 'A B12.                                            HELP0644
+B12,   ELEMENT 00 00 'N B13.                                            HELP0645
+B13,   ELEMENT 00 00 'D B14.                                            HELP0646
+B14,   ELEMENT 00 00 NIL 16.                                            HELP0647
+B21,   ELEMENT 00 00 'D B22.                                            HELP0648
+B22,   ELEMENT 00 00 'E B23.                                            HELP0649
+B23,   ELEMENT 00 00 'F B24.                                            HELP0650
+B24,   ELEMENT 00 00 NIL 12.                                            HELP0651
+B31,   ELEMENT 00 00 'E B32.                                            HELP0652
+B32,   ELEMENT 00 00 'L B33.                                            HELP0653
+B33,   ELEMENT 00 00 'S B34.                                            HELP0654
+B34,   ELEMENT 00 00 'E B35.                                            HELP0655
+B35,   ELEMENT 00 00 NIL 15.                                            HELP0656
+B41,   ELEMENT 00 00 'I B42.                                            HELP0657
+B42,   ELEMENT 00 00 'F B43.                                            HELP0658
+B43,   ELEMENT 00 00 NIL 13.                                            HELP0659
+B51,   ELEMENT 00 00 'N B52.                                            HELP0660
+B52,   ELEMENT 00 00 B521 B53.                                          HELP0661
+B53,   ELEMENT 00 00 B531 NIL.                                          HELP0662
+B521,  ELEMENT 00 00 'E B522.                                           HELP0663
+B522,  ELEMENT 00 00 NIL 10.                                            HELP0664
+B531,  ELEMENT 00 00 'O B532.                                           HELP0665
+B532,  ELEMENT 00 00 'T B533.                                           HELP0666
+B533,  ELEMENT 00 00 NIL 18.                                            HELP0667
+B61,   ELEMENT 00 00 'O B62.                                            HELP0668
+B62,   ELEMENT 00 00 'R B63.                                            HELP0669
+B63,   ELEMENT 00 00 NIL 17.                                            HELP0670
+B71,   ELEMENT 00 00 'T B72.                                            HELP0671
+B72,   ELEMENT 00 00 'H B73.                                            HELP0672
+B73,   ELEMENT 00 00 'E B74.                                            HELP0673
+B74,   ELEMENT 00 00 'N B75.                                            HELP0674
+B75,   ELEMENT 00 00 NIL 14.                                            HELP0675
+NILAT, ELEMENT 00 00 '( N1.        REPRESENTATION OF THE EMPTY LIST.    HELP0676
+N1,    ELEMENT 00 00 ') N2.                                             HELP0677
+N2,    ELEMENT 00 00 NIL NIL.                                           HELP0678
+.                                                                       HELP0679
+.                                                                       HELP0680
+       LOAD DYNALC.                                                     HELP0681
+.                                                                       HELP0682
+       END PROGRAM.                                                     HELP0683

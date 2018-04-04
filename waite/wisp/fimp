@@ -1,0 +1,295 @@
+C  THE PURPOSE OF THIS PROGRAM IS TO MAINTAIN A LIBRARY TAPE FOR THE    FIMP0001
+C  MOBILE PROGRAMMING SYSTEM.  IT IS A SIMPLE FILE UTILITY WHICH        FIMP0002
+C  MANIPULATES 80-COLUMN CARDS SERIALIZED IN COLUMNS 73-80.  THERE ARE  FIMP0003
+C  EIGHT COMMANDS (BELOW) SPECIFIED BY A SINGLE DIGIT PUNCHED IN COLUMN FIMP0004
+C  1 OF THE COMMAND CARD.  COLUMNS 2 AND 3 CONTAIN A UNIT NUMBER, AND   FIMP0005
+C  COLUMNS 4-11 A SERIAL NUMBER.  (THE FIRST 4 COLUMNS OF THE SERIAL    FIMP0006
+C  NUMBER ARE DEVOTED TO AN ALPHANUMERIC DECK IDENTIFIER AND THE LAST 4 FIMP0007
+C  CONTAIN AN INTEGER CARD NUMBER.)  THE REMAINING COLUMNS OF THE       FIMP0008
+C  COMMAND CARD ARE IGNORED.  COMMANDS ARE INITIALLY ASSUMED TO COME    FIMP0009
+C  FROM UNIT 5.  THIS ASSIGNMENT CAN BE CHANGED BY ALTERING THE INITIAL FIMP0010
+C  VALUE OF JCTL.                                                       FIMP0011
+C                                                                       FIMP0012
+C-----------------------------------------------------------------------FIMP0013
+C                                                                       FIMP0014
+C  COMMAND                         EXPLANATION                          FIMP0015
+C                                                                       FIMP0016
+C     1       READ CARD IMAGES FROM THE SPECIFIED UNIT UNTIL ONE WITH   FIMP0017
+C             THE SPECIFIED SERIAL NUMBER IS ENCOUNTERED.  IF THERE IS  FIMP0018
+C             NO CARD IMAGE WITH A MATCHING SERIAL NUMBER, STOP READING FIMP0019
+C             WHEN THE END OF THE FILE IS REACHED.                      FIMP0020
+C                                                                       FIMP0021
+C     2       AS (1), EXCEPT THAT THE CARD IMAGES ARE WRITTEN ONTO THE  FIMP0022
+C             CURRENT OUTPUT UNIT.                                      FIMP0023
+C                                                                       FIMP0024
+C     3       SET THE CURRENT OUTPUT UNIT TO THE SPECIFIED UNIT.  IF THEFIMP0025
+C             SERIALIZATION FIELD IS NOT BLANK, THEN THE DECK IDENTIFIERFIMP0026
+C             IS USED FOR RE-SERIALIZATION.  IF THE CARD NUMBER IS      FIMP0027
+C             BLANK, ONLY UNSERIALIZED OUTPUT CARDS WILL BE RE-         FIMP0028
+C             SERIALIZED.  OTHERWISE, ALL SUBSEQUENT OUTPUT CARDS WILL  FIMP0029
+C             BE RE-SERIALIZED.  THE FIRST SERIAL NUMBER WILL BE THAT   FIMP0030
+C             SPECIFIED BY THE COMMAND, AND SUBSEQUENT NUMBERS ARE      FIMP0031
+C             INCREMENTED BY 1.                                         FIMP0032
+C                                                                       FIMP0033
+C     4       REWIND THE SPECIFIED UNIT.  (THE SERIALIZATION FIELD IS   FIMP0034
+C             IGNORED.)                                                 FIMP0035
+C                                                                       FIMP0036
+C     5       TERMINATE EXECUTION OF FIMP.  (THE UNIT AND SERIALIZATION FIMP0037
+C             FIELDS ARE IGNORED.)                                      FIMP0038
+C                                                                       FIMP0039
+C     6       WRITE A FILE MARK ON THE SPECIFIED UNIT.  (THE            FIMP0040
+C             SERIALIZATION FIELD IS IGNORED.)                          FIMP0041
+C                                                                       FIMP0042
+C     7       AS (2), EXCEPT THAT SUBSEQUENT CARD IMAGES READ FROM THE  FIMP0043
+C             COMMAND UNIT REPLACE CARD IMAGES FROM THE SPECIFIED UNIT  FIMP0044
+C             WITH MATCHING SERIAL NUMBERS.  WHEN A CARD WITH A BLANK   FIMP0045
+C             SERIAL NUMBER IS FOUND ON THE COMMAND UNIT, REPLACEMENTS  FIMP0046
+C             CEASE.  EXECUTION OF THE COMMAND THEN CONTINUES AS FOR (2)FIMP0047
+C                                                                       FIMP0048
+C     8       TAKE FURTHER COMMANDS FROM THE SPECIFIED UNIT.  (THE      FIMP0049
+C             SERIALIZATION FIELD IS IGNORED.)                          FIMP0050
+C                                                                       FIMP0051
+C-----------------------------------------------------------------------FIMP0052
+C                                                                       FIMP0053
+C  TWO ADDITIONAL PROCEDURES ARE NEEDED TO RUN FIMP-                    FIMP0054
+C                                                                       FIMP0055
+C         1)  A FUNCTION SUBPROGRAM WHICH TESTS FOR END-OF-FILE (EOF)   FIMP0056
+C           AFTER A READ OPERATION.                                     FIMP0057
+C                                                                       FIMP0058
+C              FUNCTION IFEOF(N,JBA)                                    FIMP0059
+C              DIMENSION JBA(20)                                        FIMP0060
+C                                                                       FIMP0061
+C                   N        IS THE FORTRAN UNIT ON WHICH THE READ      FIMP0062
+C                            OPERATION TOOK PLACE.                      FIMP0063
+C                   JBA      IS THE CARD IMAGE READ, IN A4 FORMAT.      FIMP0064
+C                   SET IFEOF=0 IF NO EOF WAS DETECTED                  FIMP0065
+C                   SET IFEOF=NONZERO IF EOF WAS DETECTED               FIMP0066
+C                                                                       FIMP0067
+C              NOTE - IF YOUR VERSION OF FORTRAN INCORPORATES THE EOF   FIMP0068
+C              TEST IN THE READ STATEMENT, MAKE APPROPRIATE CHANGES IN  FIMP0069
+C              THE SOURCE TEXT OF FIMP AND DISREGARD IFEOF.             FIMP0070
+C                                                                       FIMP0071
+C         2)  A FUNCTION SUBPROGRAM WHICH CONVERTS A 4-DIGIT INTEGER IN FIMP0072
+C           A4 FORMAT TO AN INTEGER IN INTERNAL FORM.                   FIMP0073
+C                                                                       FIMP0074
+C              FUNCTION ICNVT(N)                                        FIMP0075
+C                                                                       FIMP0076
+C                   N        IS A FOUR-DIGIT NUMBER IN A4 FORMAT.       FIMP0077
+C                   SET ICNVT=INTEGER VALUE OF THE NUMBER N.            FIMP0078
+C                                                                       FIMP0079
+C  THE DIMENSION STATEMENTS OF FIMP ARE SET UP UNDER THE ASSUMPTION THATFIMP0080
+C  IT IS POSSIBLE TO PACK AT LEAST 4 CHARACTERS INTO AN INTEGER         FIMP0081
+C  VARIABLE.  IF THIS IS NOT THE CASE, THEN OBVIOUS CHANGES WILL BE     FIMP0082
+C  REQUIRED.                                                            FIMP0083
+C                                                                       FIMP0084
+      DIMENSION INPUT(20),IREPL(20),IDENT(2),NUMBER(4)                  FIMP0085
+C                                                                       FIMP0086
+C        SET THE DEFAULT UNIT NUMBERS.  THESE NUMBERS SHOULD BE ALTERED FIMP0087
+C        IF NECESSARY TO CONFORM TO LOCAL CONVENTIONS.  THE PURPOSES OF FIMP0088
+C        THE UNITS ARE-                                                 FIMP0089
+C                                                                       FIMP0090
+C             JCTL - INITIAL UNIT FOR COMMANDS (RESET BY COMMAND 8)     FIMP0091
+C             JPRT - UNIT FOR ERROR MESSAGES                            FIMP0092
+C             JOUT - INITIAL UNIT FOR OUTPUT TEXT (RESET BY COMMAND 3)  FIMP0093
+C                                                                       FIMP0094
+      DATA JCTL,JPRT,JOUT/5,6,7/                                        FIMP0095
+C                                                                       FIMP0096
+C        SET A WORD OF BLANKS AND THE DEFAULT SERIAL NUMBER.            FIMP0097
+C        THIS ASSUMES THAT THE HOLLERITH DATUM CREATED BY THE 4H        FIMP0098
+C        SPECIFICATION WILL MATCH THE INTERNAL REPRESENTATION OF 4      FIMP0099
+C        SPACES READ UNDER AN A4 FORMAT                                 FIMP0100
+C                                                                       FIMP0101
+      DATA IBLNK,NEWID/2*4H    /,NUMBR,NDIGT/2*1/                       FIMP0102
+C                                                                       FIMP0103
+C                                                                       FIMP0104
+C        INITIALLY ASSUME NO DEFAULT SERIALIZATION                      FIMP0105
+C                                                                       FIMP0106
+      K3=0                                                              FIMP0107
+      NEWID=IBLNK                                                       FIMP0108
+      NUMBR=0                                                           FIMP0109
+C                                                                       FIMP0110
+C        READ ONE COMMAND                                               FIMP0111
+C                                                                       FIMP0112
+   10 READ (JCTL,100) I,IUNIT,IDENT,(INPUT(K),K=1,18)                   FIMP0113
+C                                                                       FIMP0114
+C        ASSUME THAT THE COMMAND IS A SKIP                              FIMP0115
+C                                                                       FIMP0116
+      K2=0                                                              FIMP0117
+      K7=0                                                              FIMP0118
+C                                                                       FIMP0119
+C        DECODE THE COMMAND                                             FIMP0120
+C                                                                       FIMP0121
+      IF (I .GE. 1 .AND. I .LT. 9)  GO TO (1,2,3,4,5,6,7,8),I           FIMP0122
+C                                                                       FIMP0123
+C        ERROR MESSAGES                                                 FIMP0124
+C                                                                       FIMP0125
+      WRITE (JPRT,200) I,IUNIT,IDENT,(INPUT(K),K=1,18),JCTL             FIMP0126
+      STOP                                                              FIMP0127
+  200 FORMAT (20H0THE INVALID COMMAND ,I1,I2,2A4,A1,17A4/               FIMP0128
+     1  20H WAS READ FROM UNIT ,I2)                                     FIMP0129
+C                                                                       FIMP0130
+C        ENDFILE MUST NOT OCCUR ON EITHER UNIT DURING A REPLACEMENT     FIMP0131
+C                                                                       FIMP0132
+   11 IF (K7 .EQ. 0)  GO TO 10                                          FIMP0133
+      JCTL=IUNIT                                                        FIMP0134
+   12 WRITE (JPRT,201) JCTL,I,IUNIT,IDENT                               FIMP0135
+      STOP                                                              FIMP0136
+  201 FORMAT (5H0UNIT,I3,15H ENDFILE DURING,I2,I2,2A4)                  FIMP0137
+C                                                                       FIMP0138
+C        FIRST CARD OF A REPLACEMENT MUST BE SERIALIZED                 FIMP0139
+C                                                                       FIMP0140
+   13 WRITE (JPRT,202) I,IUNIT,IDENT,(INPUT(K),K=1,18),IREPL,IUNIT,IDENTFIMP0141
+      GO TO 2                                                           FIMP0142
+  202 FORMAT(23H0WARNING - THE COMMAND ,I1,I2,2A4,A1,17A4/              FIMP0143
+     1 28H WAS FOLLOWED BY THE CARD - ,20A4/                            FIMP0144
+     2 54H THIS CARD WAS IGNORED, AND THE COMMAND WAS TAKEN AS 2,I2,2A4)FIMP0145
+C                                                                       FIMP0146
+C        READ THE FIRST REPLACEMENT CARD IF THE COMMAND IS A REPLACE    FIMP0147
+C                                                                       FIMP0148
+    7 READ (JCTL,101) IREPL                                             FIMP0149
+      IF (IFEOF(JCTL,IREPL) .NE. 0)  GO TO 12                           FIMP0150
+C                                                                       FIMP0151
+C        A LEGAL REPLACEMENT MUST HAVE A SERIAL NUMBER                  FIMP0152
+C                                                                       FIMP0153
+      IF (IREPL(19) .EQ. IBLNK)  GO TO 13                               FIMP0154
+      K7=1                                                              FIMP0155
+C                                                                       FIMP0156
+C        CARDS MUST BE WRITTEN TO JOUT                                  FIMP0157
+C                                                                       FIMP0158
+    2 K2=1                                                              FIMP0159
+C                                                                       FIMP0160
+C        READ THE NEXT CARD FROM THE CURRENT TEXT FILE                  FIMP0161
+C                                                                       FIMP0162
+    1 READ (IUNIT,101) INPUT                                            FIMP0163
+C                                                                       FIMP0164
+C        AT THE END OF THE TEXT FILE, READ ANOTHER COMMAND              FIMP0165
+C                                                                       FIMP0166
+      IF (IFEOF(IUNIT,INPUT) .NE. 0)  GO TO 11                          FIMP0167
+C                                                                       FIMP0168
+C        CHECK TO SEE WHETHER THIS CARD GETS REPLACED                   FIMP0169
+C                                                                       FIMP0170
+      IF (K7 .EQ. 0)  GO TO 21                                          FIMP0171
+      IF (INPUT(20) .NE. IREPL(20))  GO TO 21                           FIMP0172
+      IF (INPUT(19) .NE. IREPL(19))  GO TO 21                           FIMP0173
+C                                                                       FIMP0174
+C        IF SO, REPLACE IT WITH THE REPLACEMENT PREVIOUSLY READ         FIMP0175
+C                                                                       FIMP0176
+      DO 74 K=1,18                                                      FIMP0177
+   74 INPUT(K)=IREPL(K)                                                 FIMP0178
+C                                                                       FIMP0179
+C        GET THE NEXT REPLACEMENT CARD                                  FIMP0180
+C                                                                       FIMP0181
+      READ (JCTL,101) IREPL                                             FIMP0182
+C                                                                       FIMP0183
+C        NO SERIAL NUMBER INDICATES THE END OF THE REPLACEMENTS         FIMP0184
+C                                                                       FIMP0185
+      IF (IREPL(19) .EQ. IBLNK)  K7=0                                   FIMP0186
+C                                                                       FIMP0187
+C        CHECK WHETHER CARDS ARE BEING WRITTEN TO JOUT                  FIMP0188
+C                                                                       FIMP0189
+   21 IF (K2 .EQ. 0)  GO TO 23                                          FIMP0190
+C                                                                       FIMP0191
+C        IF SO, CHECK WHETHER RE-SERIALIZATION IS NECESSARY             FIMP0192
+C                                                                       FIMP0193
+      IF (K3 .NE. 0 .OR. (INPUT(20) .EQ. IBLNK .AND. NEWID .NE. IBLNK)) FIMP0194
+     1  GO TO 90                                                        FIMP0195
+C                                                                       FIMP0196
+C        WRITE THE CARD WITHOUT RE-SERIALIZATION                        FIMP0197
+C                                                                       FIMP0198
+      WRITE (JOUT,101) INPUT                                            FIMP0199
+C                                                                       FIMP0200
+C        CHECK FOR THE END OF THE RANGE OF THE CURRENT COMMAND          FIMP0201
+C                                                                       FIMP0202
+   23 IF (INPUT(20) .NE. IDENT(2))  GO TO 1                             FIMP0203
+      IF (INPUT(19) .NE. IDENT(1))  GO TO 1                             FIMP0204
+      GO TO 10                                                          FIMP0205
+C                                                                       FIMP0206
+C        RESET THE OUTPUT UNIT NUMBER AND CHECK RE-SERIALIZATION        FIMP0207
+C                                                                       FIMP0208
+    3 JOUT=IUNIT                                                        FIMP0209
+      IF (IDENT(2) .EQ. IBLNK)  GO TO 32                                FIMP0210
+C                                                                       FIMP0211
+C        SAVE THE DEFAULT SERIALIZATION IF NECESSARY                    FIMP0212
+C                                                                       FIMP0213
+      IF (K3 .NE. 0)  GO TO 30                                          FIMP0214
+      IDSAV=NEWID                                                       FIMP0215
+      NRSAV=NUMBR                                                       FIMP0216
+C                                                                       FIMP0217
+C        SET RE-SERIALIZATION FLAG AND NEW SERIAL NUMBER                FIMP0218
+C                                                                       FIMP0219
+      K3=1                                                              FIMP0220
+   30 NEWID=IDENT(1)                                                    FIMP0221
+      NUMBR=ICNVT(IDENT(2))-1                                           FIMP0222
+C                                                                       FIMP0223
+C        NUMBER OF DIGITS IS NOW UNKNOWN                                FIMP0224
+C                                                                       FIMP0225
+   31 NDIGT=1                                                           FIMP0226
+      GO TO 10                                                          FIMP0227
+C                                                                       FIMP0228
+C        RESET THE DEFAULT SERIALIZATION IF NECESSARY                   FIMP0229
+C                                                                       FIMP0230
+   32 IF (IDENT(1) .EQ. IBLNK)  GO TO 34                                FIMP0231
+      IDSAV=IDENT(1)                                                    FIMP0232
+      NRSAV=0                                                           FIMP0233
+C                                                                       FIMP0234
+C        RESET THE RE-SERIALIZATION FLAG AND RESTART DEFAULT SERIAL     FIMP0235
+C        NUMBERS                                                        FIMP0236
+C                                                                       FIMP0237
+   33 K3=0                                                              FIMP0238
+      NEWID=IDSAV                                                       FIMP0239
+      NUMBR=NRSAV                                                       FIMP0240
+      GO TO 31                                                          FIMP0241
+C                                                                       FIMP0242
+C        IS A CHANGE IN THE RE-SERIALIZATION FLAG REQUIRED              FIMP0243
+C                                                                       FIMP0244
+   34 IF (K3)  33,10,33                                                 FIMP0245
+C                                                                       FIMP0246
+C        REWIND THE SPECIFIED UNIT                                      FIMP0247
+C                                                                       FIMP0248
+    4 REWIND IUNIT                                                      FIMP0249
+      GO TO 10                                                          FIMP0250
+C                                                                       FIMP0251
+C        TERMINATE EXECUTION OF FIMP                                    FIMP0252
+C                                                                       FIMP0253
+    5 STOP                                                              FIMP0254
+C                                                                       FIMP0255
+C        WRITE A FILE MARK ON THE SPECIFIED UNIT                        FIMP0256
+C                                                                       FIMP0257
+    6 ENDFILE IUNIT                                                     FIMP0258
+      GO TO 10                                                          FIMP0259
+C                                                                       FIMP0260
+C        OBEY THE COMMANDS ON THE SPECIFIED UNIT                        FIMP0261
+C                                                                       FIMP0262
+    8 JCTL=IUNIT                                                        FIMP0263
+      GO TO 10                                                          FIMP0264
+C                                                                       FIMP0265
+C        RE-SERIALIZE THE CURRENT OUTPUT CARD                           FIMP0266
+C                                                                       FIMP0267
+   90 NUMBR=NUMBR+1                                                     FIMP0268
+      GO TO (92,94,96,98),NDIGT                                         FIMP0269
+   91 NDIGT=1                                                           FIMP0270
+      NUMBR=1                                                           FIMP0271
+   92 IF (NUMBR .GE. 10)  GO TO 93                                      FIMP0272
+      WRITE (JOUT,102) (INPUT(K),K=1,18),NEWID,NUMBR                    FIMP0273
+      GO TO 23                                                          FIMP0274
+   93 NDIGT=2                                                           FIMP0275
+   94 IF (NUMBR .GE. 100)  GO TO 95                                     FIMP0276
+      WRITE (JOUT,103) (INPUT(K),K=1,18),NEWID,NUMBR                    FIMP0277
+      GO TO 23                                                          FIMP0278
+   95 NDIGT=3                                                           FIMP0279
+   96 IF (NUMBR .GE. 1000)  GO TO 97                                    FIMP0280
+      WRITE (JOUT,104) (INPUT(K),K=1,18),NEWID,NUMBR                    FIMP0281
+      GO TO 23                                                          FIMP0282
+   97 NDIGT=4                                                           FIMP0283
+   98 IF (NUMBR .GE. 10000)  GO TO 91                                   FIMP0284
+      WRITE (JOUT,105) (INPUT(K),K=1,18),NEWID,NUMBR                    FIMP0285
+      GO TO 23                                                          FIMP0286
+C                                                                       FIMP0287
+  100 FORMAT(I1,I2,2A4,A1,17A4)                                         FIMP0288
+  101 FORMAT(20A4)                                                      FIMP0289
+  102 FORMAT (19A4,3H000,I1)                                            FIMP0290
+  103 FORMAT (19A4,2H00,I2)                                             FIMP0291
+  104 FORMAT (19A4,1H0,I3)                                              FIMP0292
+  105 FORMAT (19A4,I4)                                                  FIMP0293
+C                                                                       FIMP0294
+      END                                                               FIMP0295

@@ -1,0 +1,89 @@
+      ENTRY INITL.                 FORM THE FREE LIST INITIALLY         DYNL0001
+      A = 8.                       SET UP A TRAVELLING POINTER          DYNL0002
+LINK, B = A, INCR A.               ADVANCE TO THE NEXT ELEMENT.         DYNL0003
+      CDR B = A.                   LINK ADJACENT ELEMENTS.              DYNL0004
+      AF B = 00, BPF B = 00.       CLEAR FLAGS.                         DYNL0005
+      TO LINK IF A LT 9.           ARE WE DONE, NO.                     DYNL0006
+      TO BTOP IF A NE 9.           DOES B ADDRESS THE LAST COMPLETE     DYNL0007
+.                                  ELEMENT, YES.                        DYNL0008
+      AF A = 00, BPF A = 00.       NO, CLEAR FLAGS IN THE LAST ELEMENT  DYNL0009
+      B = A.                       AND POINT B TO IT.                   DYNL0010
+BTOP, CDR B = NIL.                 TERMINATE THE FREE LIST, AND ATTACH  DYNL0011
+      (FREE) = 8.                  IT TO THE ELEMENT FREE.              DYNL0012
+      (BOT) = 8, (TOP) = B.        PRESERVE STORE LIMITS.               DYNL0013
+      EXIT INITL.                  LEAVE INITIALIZATION PROCEDURE.      DYNL0014
+FREE, ELEMENT 00 00 00 NIL.                                             DYNL0015
+BOT,  ELEMENT 00 00 00 00.                                              DYNL0016
+TOP,  ELEMENT 00 00 00 00.                                              DYNL0017
+      ENTRY TRACER.                TRACE A LIST ADDRESSED BY P1.        DYNL0018
+      TO ENDTR IF CDR P1 LT (BOT). CHECK THAT THE INITIAL POINTER       DYNL0019
+      TO ENDTR IF (TOP) LT CDR P1. ADDRESSES THE DATA MEMORY.           DYNL0020
+      (P3) = CDR P1.               IF SO, GRAB ADDRESSED ELEMENT.       DYNL0021
+      TO ENDTR IF AF P3 = 01.      CHECK FOR MARK.                      DYNL0022
+      (P2) = (P1).                 IF NO MARK, INITIALIZE TRACE.        DYNL0023
+FORWD,CDR P1 = (P2).               SET BACK POINTER FOR RETURN.         DYNL0024
+MARK, AF P3 = 01.                  MARK THE ELEMENT.                    DYNL0025
+      (P2) = (P1), (P1) = (P3).    MOVE DOWN THE LIST.                  DYNL0026
+      TO REV IF CDR P1 LT (BOT).   MAKE SURE THE CDR STILL ADDRESSES    DYNL0027
+      TO REV IF (TOP) LT CDR P1.   THE DATA MEMORY.                     DYNL0028
+      (P3) = CDR P1.               IF SO, GRAB THE ELEMENT ADDRESSED    DYNL0029
+      TO FORWD IF AF P3 = 00.      AND CHECK FOR A MARK.                DYNL0030
+REV,  TO CHKBR IF CAR P1 LT (BOT). MAKE SURE THE CAR ADDRESSES THE DATA DYNL0031
+      TO CHKBR IF (TOP) LT CAR P1. MEMORY.                              DYNL0032
+      (P3) = CAR P1.               IF SO, GRAB THE ELEMENT ADDRESSED.   DYNL0033
+      TO BRNCH IF AF P3 = 00.      IF UNMARKED, WE HAVE A BRANCH.       DYNL0034
+CHKBR,TO ENDBR IF BPF P2 = 01.     CHECK LOCATION OF BACKWARD POINTER.  DYNL0035
+      (P3) = CDR P2, CDR P2 = (P1).RESTORE POINTER FROM CDR FIELD       DYNL0036
+      (P1) = (P2), (P2) = (P3).    AND MOVE BACK.                       DYNL0037
+      TO REV IF (P1) NE (P2).      CHECK FOR COMPLETION.                DYNL0038
+ENDTR,EXIT TRACER.                                                      DYNL0039
+BRNCH,CAR P1 = (P2), BPF P1 = 01.  SAVE THE REVERSE POINTER IN THE CAR  DYNL0040
+      TO MARK.                     AND TRACE THE BRANCH.                DYNL0041
+ENDBR,BPF P2 = 00.                 RESET THE INDICATOR BIT              DYNL0042
+      (P3) = CAR P2, CAR P2 = (P1).AND RESTORE POINTER FROM CAR FIELD.  DYNL0043
+      (P1) = (P2), (P2) = (P3).    MOVE BACK ALONG THE LIST.            DYNL0044
+      TO CHKBR.                                                         DYNL0045
+P1,   ELEMENT 00 00 00 00.                                              DYNL0046
+P2,   ELEMENT 00 00 00 00.                                              DYNL0047
+P3,   ELEMENT 00 00 00 00.                                              DYNL0048
+      ENTRY GETNEW.                DELIVER A FREE ELEMENT.              DYNL0049
+      TO ELOK IF (FREE) NE NIL.    FREE LIST EXHAUSTED, NO.             DYNL0050
+      TO FAIL3 IF (BOT) = (TOP).   QUIT IF NO MEMORY IS AVAILABLE.      DYNL0051
+      (P1) = NIL.                  YES, GET THE BASE REGISTER CHAIN.    DYNL0052
+SEQLS,BPF P1 = 01, (P1) = CAR P1.  MOVE TO THE NEXT BASE REGISTER.      DYNL0053
+      TO FAIL1 IF BPF P1 = 01.     FATAL ERROR IF CHAIN CORRUPTED.      DYNL0054
+      USE TRACER.                  TRACE AND MARK THIS LIST.            DYNL0055
+      TO SEQLS IF CAR P1 NE NIL.   CONTINUE IF THERE ARE MORE.          DYNL0056
+      (P1) = (BOT), (P2) = FREE.   ELSE FORM A NEW FREE LIST.           DYNL0057
+TSTFL,TO CLRFL IF AF P1 = 01.      IS THIS ELEMENT FREE, NO.            DYNL0058
+      CDR P2 = (P1), (P2) = (P1).  YES, ATTACH IT TO THE NEW FREE LIST. DYNL0059
+      TO ADVPT.                                                         DYNL0060
+CLRFL,AF P1 = 00.                  CLEAR FLAG OF ELEMENT IN USE.        DYNL0061
+ADVPT,TO FIXUP IF (P1) = (TOP).    CHECK FOR END OF MEMORY.             DYNL0062
+      INCR (P1), TO TSTFL.         IF NOT, CONTINUE.                    DYNL0063
+FIXUP,TO FAIL2 IF (P2) = FREE.     FATAL ERROR IF NO GARBAGE FOUND.     DYNL0064
+      CDR P2 = NIL.                ELSE TERMINATE THE FREE LIST.        DYNL0065
+      (P1) = NIL.                  PREPARE TO RESTORE BASE REGISTERS.   DYNL0066
+FIXAT,AF P1 = 01, BPF P1 = 00.     RESTORE BASE REGISTER FLAGS.         DYNL0067
+      (P1) = CAR P1.               MOVE TO NEXT BASE REGISTER           DYNL0068
+      TO FIXAT IF (P1) NE NIL.     CONTINUE UNTIL ALL ARE DONE.         DYNL0069
+ELOK, (P1) = (FREE).               DELIVER THE FIRST FREE ELEMENT AND   DYNL0070
+      (FREE) = CDR FREE.           ADVANCE THE FREE LIST POINTER.       DYNL0071
+      EXIT GETNEW.                                                      DYNL0072
+FAIL1,(NIL) = 06, LINE BUFFER = '1.CORRUPTED CAR CHAIN.                 DYNL0073
+      TO FAILI.                                                         DYNL0074
+FAIL2,(NIL) = 06, LINE BUFFER = '2.NO GARBAGE COLLECTED.                DYNL0075
+      TO FAILI.                                                         DYNL0076
+FAIL3,(NIL) = 06, LINE BUFFER = '3.MEMORY HAS NOT BEEN INITIALIZED.     DYNL0077
+FAILI,LINE BUFFER = NIL, (NIL) = 01.                                    DYNL0078
+      LINE BUFFER = 'F.                                                 DYNL0079
+      LINE BUFFER = 'A.                                                 DYNL0080
+      LINE BUFFER = 'I.                                                 DYNL0081
+      LINE BUFFER = 'L.                                                 DYNL0082
+      LINE BUFFER = ' .                                                 DYNL0083
+      WRITE OUTPT, STOP.                                                DYNL0084
+.                                                                       DYNL0085
+.  OUTPUT CHANNEL SPECIFIER.                                            DYNL0086
+.                                                                       DYNL0087
+OUTPT,ELEMENT 00 00 04 00.                                              DYNL0088
+      END DYNALC.                                                       DYNL0089

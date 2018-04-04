@@ -1,0 +1,107 @@
+204STG20087   ***EDIT***     COPY TO PROPER POSITION                    WSED0001
+205WSED0003   ***EDIT***     INSERT SCANNER ENTRY LABEL                 WSED0002
+LOC SETSCAN.                                                            WSED0003
+204STG20693   ***EDIT***     ADVANCE TO THE PROPER POSITION             WSED0004
+205WSED0105   ***EDIT***     INSERT THE WISP INPUT ROUTINE              WSED0005
+TO WISPLIN BY D.             RESET THE RETURN ADDRESS.                  WSED0006
+LOC WISPLIN.                                                            WSED0007
+GET I = A.                   RECALL THE CHANNEL SPEC.                   WSED0008
+READ NEXT I.                 GET THE LINE.                              WSED0009
+TO 98 IF FLG I NE 0.         EXIT IF ANY DIFFICULTY.                    WSED0010
+WRITE NEXT 4.                PRINT THE LINE READ.                       WSED0011
+PTR X = 5 - 1.                                                          WSED0012
+PTR X = X * 7.                                                          WSED0013
+PTR X = X + 8.                                                          WSED0014
+FLG Y = 0.                                                              WSED0015
+VAL Y = 0.                   INITIALIZE TO A NULL PARAMETER.            WSED0016
+PTR Y = C.                                                              WSED0017
+VAL Z = 0.                   INITIALIZE NUMBER OF COMMANDS              WSED0018
+PTR Z = 8 + 7.               AND TEMPORARY COMMAND LOCATION.            WSED0019
+PTR 9 = C.                                                              WSED0020
+VAL I = CHAR.                GET THE FIRST CHARACTER.                   WSED0021
+TO COMMA IF VAL I = = .      NULL PARAMETER IF THE CHARACTER IS A SPACE WSED0022
+LOC STOCH.                   STORE A CHARACTER.                         WSED0023
+PTR I = 9 - 7.               LINK TO NEXT CHARACTER POSITION.           WSED0024
+STO 9 = I.                   STORE THE CHARACTER.                       WSED0025
+TO SKIPSP IF VAL I = = .     SKIP REDUNDANT SPACES.                     WSED0026
+TO COMMA IF VAL I = =,.      A COMMA TERMINATES THE COMMAND.            WSED0027
+TO PERIOD IF VAL I = A.      A PERIOD TERMINATES THE LINE.              WSED0028
+TO LINEND IF VAL I = L.      SO DOES CR/LF.                             WSED0029
+LOC ADVPT.                                                              WSED0030
+PTR 9 = I.                   ACCEPT THE LAST CHARACTER AS PART OF THE   WSED0031
+VAL Y = Y + 1.               CURRENT COMMAND.                           WSED0032
+TO GETCH IF VAL I NE ='.     CONTINUE IF CHARACTER IS NOT A QUOTE.      WSED0033
+VAL I = CHAR.                ELSE GET THE NEXT CHARACTER                WSED0034
+TO PERIOD IF VAL I = L.      QUIT ON CR/LF                              WSED0035
+PTR I = VAL I.               PREPARE TO CONVERT CHARACTER TO DIGITS     WSED0036
+PTR W = Z.                   STACK POINTER FOR CONVERSION.              WSED0037
+PTR U = I / 5.                                                          WSED0038
+PTR V = U * 5.                                                          WSED0039
+PTR V = I - V.                                                          WSED0040
+PTR I = U.                                                              WSED0041
+STO W = V.                                                              WSED0042
+PTR W = W + 7.                                                          WSED0043
+VAL Y = Y + 1.                                                          WSED0044
+LOC CVTCH.                   CONTINUE CONVERTING TO ENSURE 2 DIGITS     WSED0045
+PTR U = I / 5.                                                          WSED0046
+PTR V = U * 5.                                                          WSED0047
+PTR V = I - V.                                                          WSED0048
+PTR I = U.                                                              WSED0049
+STO W = V.                                                              WSED0050
+PTR W = W + 7.                                                          WSED0051
+VAL Y = Y + 1.                                                          WSED0052
+TO CVTCH IF PTR I NE 0.      CONTINUE ONLY AS LONG AS NECCESARY.        WSED0053
+LOC MOVECH.                  MOVE DIGITS FROM STACK INTO TEXT.          WSED0054
+PTR W = W - 7.                                                          WSED0055
+GET U = W.                   INTEGER IN POINTER FIELD OF WORD.          WSED0056
+VAL I = PTR U.                                                          WSED0057
+VAL I = I + E.               CONVERT INTEGER TO DIGIT CHARACTER.        WSED0058
+PTR I = 9 - 7.               AND STORE IT AWAY.                         WSED0059
+STO 9 = I.                                                              WSED0060
+PTR 9 = I.                                                              WSED0061
+TO MOVECH IF PTR W NE Z.     TRANSFER THE WHOLE STACK.                  WSED0062
+LOC GETCH.                                                              WSED0063
+VAL I = CHAR.                GET NEXT CHARACTER                         WSED0064
+TO STOCH.                                                               WSED0065
+LOC SKIPSP.                                                             WSED0066
+VAL I = CHAR.                GET CHARACTER FOLLOWING A SPACE.           WSED0067
+TO SKIPSP IF VAL I = = .     IGNORE FURTHER SPACES.                     WSED0068
+TO SCOMMA IF VAL I = =,.     IF COMMA, REPLACE THE SPACE.               WSED0069
+TO PERIOD IF VAL I = A.      IF PERIOD, REPLACE THE SPACE.              WSED0070
+TO PERIOD IF VAL I = L.      IF CR/LF, REPLACE THE SPACE.               WSED0071
+PTR 9 = I.                   ELSE ACCEPT THE SPACE                      WSED0072
+VAL Y = Y + 1.                                                          WSED0073
+PTR I = 9 - 7.                                                          WSED0074
+STO 9 = I.                   AND STORE THE NEW CHARACTER.               WSED0075
+TO ADVPT.                                                               WSED0076
+LOC SCOMMA.                                                             WSED0077
+STO 9 = I.                   REPLACE PRECEEDING SPACE.                  WSED0078
+LOC COMMA.                                                              WSED0079
+STO Z = Y.                   SAVE CURRENT COMMAND.                      WSED0080
+PTR Z = Z + 7.               ADVANCE THE COMMAND POINTER.               WSED0081
+VAL Y = 0.                   RE-INITIALIZE FOR A NEW COMMAND.           WSED0082
+PTR Y = 9.                                                              WSED0083
+LOC ISPACE.                  DELETE INITIAL SPACES.                     WSED0084
+VAL I = CHAR.                                                           WSED0085
+TO ISPACE IF VAL I = = .                                                WSED0086
+TO STOCH.                                                               WSED0087
+LOC PERIOD.                                                             WSED0088
+STO 9 = L.                   REPLACE CURRENT CHARACTER WITH CR/LF.      WSED0089
+LOC LINEND.                                                             WSED0090
+STO Z = Y.                   SAVE LAST COMMAND.                         WSED0091
+VAL Y = 0.                   SET UP A NULL STRING                       WSED0092
+TO MOVE IF PTR Z GE X.       MUST WE STORE NULLS, NO.                   WSED0093
+LOC STNULL.                                                             WSED0094
+PTR Z = Z + 7.               ADVANCE THE COMMAND POINTER.               WSED0095
+STO Z = Y.                   STORE A NULL.                              WSED0096
+TO STNULL IF PTR Z NE X.                                                WSED0097
+LOC MOVE.                    MOVE THE COMMAND SPECS BACK TO THEIR       WSED0098
+GET X = Z.                   PROPER POSITIONS.                          WSED0099
+PTR 9 = 9 - 7.                                                          WSED0100
+STO 9 = X.                                                              WSED0101
+PTR Z = Z - 7.                                                          WSED0102
+TO MOVE IF PTR Z NE 8.                                                  WSED0103
+PTR V = 9.                   INITIALIZE THE SCANNER                     WSED0104
+TO SETSCAN.                  GO SCAN.                                   WSED0105
+204STG20988   ***EDIT***     COPY THE REMAINDER OF STAGE2               WSED0106
+5             ***EDIT***     QUIT                                       WSED0107

@@ -1,0 +1,164 @@
+.'$'0
+FLG ' = '.
+      JF'10=JF'20;$
+$
+''' ' = ' ' '.
+      J'10'40=J'10'50'60J'10'70;$
+$
+''' ' = ''' '.
+      J'10'40=J'50'80;$
+$
+GET ' = '.
+      JF'10=l[JP'20];$
+      JV'10=l[JP'20+1];$
+      JP'10=l[JP'20+2];$
+$
+STO ' = '.
+      l[JP'10]=JF'20;$
+      l[JP'10+1]=JV'20;$
+      l[JP'10+2]=JP'20;$
+$
+TO '' IF ''' ' = '.
+      if(J'30'60==J'30'70)goto L'10'20;$
+$
+TO '' IF ''' ' NE '.
+      if(J'30'60!=J'30'70)goto L'10'20;$
+$
+TO '' IF ''' ' LT '.
+      if(J'30'60<J'30'70)goto L'10'20;$
+$
+TO '' IF ''' ' GE '.
+      if(J'30'60>=J'30'70)goto L'10'20;$
+$
+TO '' BY '.
+      JP'30='00-99;$
+      goto L'10'20;$
+L'00:$
+$
+RETURN BY '.
+#ifdef FLT1$
+      switch(JP'10) {$
+      case 1: goto L100;$
+      }$
+#endif$
+#ifdef FLT2$
+      switch(JP'10) {$
+      case 1: goto L100;$
+      case 2: goto L101;$
+      case 3: goto L102;$
+      case 4: goto L103;$
+      }$
+#endif$
+#ifdef STAGE2$
+      switch(JP'10) {$
+      case 1: goto L100;$
+      case 2: goto L101;$
+      case 3: goto L102;$
+      case 4: goto L103;$
+      case 5: goto L104;$
+      case 6: goto L105;$
+      case 7: goto L106;$
+      case 8: goto L107;$
+      case 9: goto L108;$
+      case 10: goto L109;$
+      case 11: goto L110;$
+      case 12: goto L111;$
+      case 13: goto L112;$
+      case 14: goto L113;$
+      case 15: goto L114;$
+      case 16: goto L115;$
+      case 17: goto L116;$
+      case 18: goto L117;$
+      }$
+#endif$
+$
+TO ''.
+      goto L'10'20;$
+$
+STOP.
+      return;$
+$
+VAL ' = CHAR.
+      JV'10=lb[lbr];$
+      lbr=lbr+1;$
+$
+CHAR = VAL '.
+      iwrch(JV'10,lb,&lbw,&JF'10,&lbl);$
+$
+READ NEXT '.
+      lbl=BUFSIZ-1;$
+      JF'10=ioop(-1,JV'10,lb,1,&lbl);$
+      lb[lbl] = -1;$
+      lbr=1;$
+$
+WRITE NEXT '.
+      JF'10=ioop(1,JV'10,lb,1,&lbl);$
+      lbw=1;$
+$
+REWIND '.
+      JF'10=ioop(0,JV'10,lb,1,&lbl);$
+      JF'10=0;$
+$
+LOC ''.
+L'10'20:$
+$
+MESSAGE '''' TO '.
+      mb[11]='11;$
+      mb[12]='21;$
+      mb[13]='31;$
+      mb[14]='41;$
+      JF'50=ioop(1,JV'50,mb,1,&mbl);$
+$
+END PROGRAM.
+}$
+$
+MESSAGE '''''''.
+      for(j=1;j<=9;j++)mb[j]='11;$
+      mb[10]='21;$
+      mb[15]='21;$
+      mb[16]='31;$
+      mb[17]='41;$
+      mb[18]='51;$
+      mb[19]='61;$
+      mb[20]='71;$
+$$
+#include <stdio.h>
+#include "f4io.h"
+void
+progr()
+{
+      int lb[BUFSIZ],mb[22],l[12000];
+      int j,mbl=21;
+      int JFA,JFB,JFC,JFD,JFE,JFF,JFG,JFH,JFI,JFJ,JFK,JFL,JFM,JFN,JFO,JFP,
+          JFQ,JFR,JFS,JFT,JFU,JFV,JFW,JFX,JFY,JFZ,JF4;
+      int JVA,JVB,JVC,JVD,JVE,JVF,JVG,JVH,JVI,JVJ,JVK,JVL,JVM,JVN,JVO,JVP,
+          JVQ,JVR,JVS,JVT,JVU,JVV,JVW,JVX,JVY,JVZ;
+      int JPA,JPB,JPC,JPD,JPE,JPF,JPG,JPH,JPI,JPJ,JPK,JPL,JPM,JPN,JPO,JPP,
+          JPQ,JPR,JPS,JPT,JPU,JPV,JPW,JPX,JPY,JPZ,JP4;
+      int JP9=12000;
+      int JF0=0;
+      int JF1=1;
+      int JF2=2;
+      int JF3=3;
+      int JV0=0;
+      int JV1=1;
+      int JV2=2;
+      int JV3=3;
+      int JV4=4;
+      int JV5=5;
+      int JV6=6;
+      int JV7=7;
+      int JV8=8;
+      int JV9=9;
+      int JP0=0;
+      int JP1=1;
+      int JP2=2;
+      int JP3=3;
+      int JP5=10;
+      int JP7=3;
+      int JP8=1;
+      int lbl=1;
+      int lbr=1;
+      int lbw=1;
+      JP9=JP8+(JP9/JP7-1)*JP7;
+MESSAGE * ERROR.

@@ -1,0 +1,24 @@
+This directory contains a simple Unix implementation of STAGE2.  It is
+identical to the implementation discussed in Appendix A of "Implementing
+Software for Non-Numeric Applications", except that the implementation
+language is C instead of FORTRAN.
+
+To create an executable version, give the command "make".  After the
+executable version has been created, superfluous files can be removed by
+giving the command "make tidy".  The directory can be returned to its
+original state by giving the command "make clean".
+
+The STAGE2 implementation provides four I/O units:
+
+	1	Standard input
+	2	File "scratch" in the local directory
+	3	File "code" in the local directory
+	4	Standard output
+
+A typical application using a macro file "macros" to convert a text file
+"text" would use the command:
+
+	cat macros text | stage2
+
+After completion of the command the translated text would appear in file
+"code" and any error messages would have been written to standard output.

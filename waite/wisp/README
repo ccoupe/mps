@@ -1,0 +1,8 @@
+This directory contains the program text from Appendices B and C of
+"Implementing Software for Non-Numeric Applications".
+
+To implement the Wisp machine, follow the directions in Appendix B.
+File "fimp" is a more capable version of the simple editor shown in Figure B.1.
+
+To implement the HELP compiler/interpreter, first implement Wisp and then
+follow the directions in Appendix C.

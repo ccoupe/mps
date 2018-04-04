@@ -1,0 +1,13 @@
+This directory contains the program text from the book
+
+	"Implementing Software for Non-Numeric Applications"
+	W. M. Waite
+	Prentice-Hall, 1973
+
+Directory "stage2" is the text from Appendix A, and directory "wisp" is the
+text from Appendices B and C.  This text is unchanged, except that it has
+been split up into separate files.
+
+Directory "Cstage2" contains an implementation of Stage2 based upon C
+instead of FORTRAN.  An executable version of this implementation can be
+built under Unix via make as described in file "Cstage2/README".

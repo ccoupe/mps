@@ -1,0 +1,120 @@
+.'$'0 
+FLG ' = '.
+      JF'10=JF'20$
+$ 
+''' ' = ' ' '.
+      J'10'40=J'10'50'60J'10'70$
+$ 
+''' ' = ''' '.
+      J'10'40=J'50'80$
+$ 
+GET ' = '.
+      JF'10=L(JP'20)$ 
+      JV'10=L(JP'20+1)$ 
+      JP'10=L(JP'20+2)$ 
+$ 
+STO ' = '.
+      L(JP'10)=JF'20$ 
+      L(JP'10+1)=JV'20$ 
+      L(JP'10+2)=JP'20$ 
+$ 
+TO '' IF ''' ' = '. 
+      IF(J'30'60.EQ.J'30'70)GOTO'10'20$ 
+$ 
+TO '' IF ''' ' '' '.
+      IF(J'30'60.'70'80.J'30'90)GOTO'10'20$ 
+$ 
+TO '' BY '. 
+      JP'30='00-99$ 
+      GOTO'10'20$ 
+  '00 CONTINUE$ 
+$ 
+RETURN BY '.
+C        USE THE FOLLOWING CARD WHEN TRANSLATING FLT1 
+      GOTO(100),JP'10$
+C        USE THE FOLLOWING CARD WHEN TRANSLATING FLT2 
+      GOTO(100,101,102,103),JP'10$
+C        USE THE FOLLOWING TWO CARDS WHEN TRANSLATING STAGE2
+      GOTO(100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,$
+     1115,116,117),JP'10$ 
+$ 
+TO ''.
+      GOTO'10'20$ 
+$ 
+STOP. 
+      RETURN$ 
+$ 
+VAL ' = CHAR. 
+      JV'10=LB(LBR)$
+      LBR=LBR+1$
+$ 
+CHAR = VAL '. 
+      CALL IWRCH(JV'10,LB,LBW,JF'10,LBL)$ 
+$ 
+READ NEXT '.
+      JF'10=IOOP(-1,JV'10,LB,1,LBL)$
+      LB(LBL)=-1$ 
+      LBR=1$
+$ 
+WRITE NEXT '. 
+      JF'10=IOOP(1,JV'10,LB,1,LBL)$ 
+      LBW=1$
+$ 
+REWIND '. 
+      JF'10=IOOP(0,JV'10,LB,1,1)$ 
+      JF'10=0$
+$ 
+LOC ''. 
+   '10'20 CONTINUE$ 
+$ 
+MESSAGE '''' TO '.
+      MB(11)='11$ 
+      MB(12)='21$ 
+      MB(13)='31$ 
+      MB(14)='41$ 
+      JF'50=IOOP(1,JV'50,MB,1,21)$
+$ 
+END PROGRAM.
+      END$
+$ 
+MESSAGE '''''''.
+      DO1000J=1,9$
+ 1000 MB(J)='11$
+      MB(10)='21$ 
+      MB(15)='21$ 
+      MB(16)='31$ 
+      MB(17)='41$ 
+      MB(18)='51$ 
+      MB(19)='61$ 
+      MB(20)='71$ 
+$$
+      SUBROUTINE PROGR
+      DIMENSION LB(81),MB(20),L(12000)
+      COMMON MAXCH,JCHAN(24)
+      JP9=12000 
+      JF0=0 
+      JF1=1 
+      JF2=2 
+      JF3=3 
+      JV0=0 
+      JV1=1 
+      JV2=2 
+      JV3=3 
+      JV4=4 
+      JV5=5 
+      JV6=6 
+      JV7=7 
+      JV8=8 
+      JV9=9 
+      JP0=0 
+      JP1=1 
+      JP2=2 
+      JP3=3 
+      JP5=10
+      JP7=3 
+      JP8=1 
+      LBL=1 
+      LBR=1 
+      LBW=1 
+      JP9=JP8+(JP9/JP7-1)*JP7 
+MESSAGE * ERROR.

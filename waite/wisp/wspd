@@ -1,0 +1,75 @@
+1)  IF THE MACROS ARE ALL CORRECT, THE OUTPUT CONSISTS OF NUMBERED LINESWSPD0001
+2)  ONLY.  THE FIRST TWO LINES DEPEND ONLY UPON RECORD I/O.             WSPD0002
+  TO L1 IF 01 = 01 FAILS                                                WSPD0003
+  TO L2 IF 01 = 02 FAILS                                                WSPD0004
+  TO L4 IF 01 NE 02 FAILS                                               WSPD0005
+  TO L5 IF 01 NE 01 FAILS                                               WSPD0006
+  TO L7 IF 01 LT 02 FAILS                                               WSPD0007
+  TO L8 IF 01 LT 01 FAILS                                               WSPD0008
+  TO L10 IF 02 LT 01 FAILS                                              WSPD0009
+3)  TESTS OF J--IM COMPLETE.                                            WSPD0010
+  TO L12 IF ONE = (PTR) FAILS                                           WSPD0011
+  TO L13 IF PTR NE (PTR) FAILS                                          WSPD0012
+  TO L14 IF PRINT LT (PTR) FAILS                                        WSPD0013
+  TO L15 IF 00 = AF PTR FAILS                                           WSPD0014
+  TO L16 IF 01 = BPF PTR FAILS                                          WSPD0015
+  TO L17 IF 02 = CAR PTR FAILS                                          WSPD0016
+  TO L18 IF 03 = CDR PTR FAILS                                          WSPD0017
+4)  TESTS OF CMP COMPLETE.                                              WSPD0018
+  TO L19 IF (PTR2) = PTR FAILS                                          WSPD0019
+  TO L20 IF AF PTR2 = 01 FAILS                                          WSPD0020
+  TO L21 IF BPF PTR2 = 00 FAILS                                         WSPD0021
+  TO L22 IF CAR PTR2 = 04 FAILS                                         WSPD0022
+  TO L23 IF PTR 2 = ONE FAILS                                           WSPD0023
+5)  TESTS OF FET COMPLETE.                                              WSPD0024
+  (PTR2) = ONE FAILS                                                    WSPD0025
+  AF PTR = 01 FAILS                                                     WSPD0026
+  BPF PTR = 00 FAILS                                                    WSPD0027
+  CAR PTR = 05 FAILS                                                    WSPD0028
+  CDR PTR = 06 FAILS                                                    WSPD0029
+6)  TESTS OF STO COMPLETE.                                              WSPD0030
+  INCR AF PTR3 FAILS                                                    WSPD0031
+  INCR BPF PTR3 FAILS                                                   WSPD0032
+  INCR (PTR3) FAILS                                                     WSPD0033
+  INCR AF PTR4 FAILS                                                    WSPD0034
+  INCR BPF PTR4 FAILS                                                   WSPD0035
+  INCR CAR PTR4 FAILS                                                   WSPD0036
+  INCR CDR PTR4 FAILS                                                   WSPD0037
+7)  TESTS OF INC COMPLETE.                                              WSPD0038
+  TO (LB1) IF 01 = 01 FAILS                                             WSPD0039
+  TO (LB2) IF 01 = 02 FAILS                                             WSPD0040
+  TO CAR LB3 IF 01 = 01 FAILS                                           WSPD0041
+  TO CAR LB4 IF 01 = 02 FAILS                                           WSPD0042
+  TO CDR LB3 IF 01 = 01 FAILS                                           WSPD0043
+  TO CDR LB4 IF 01 = 02 FAILS                                           WSPD0044
+8)  TESTS OF JEQ COMPLETE.                                              WSPD0045
+  TO (LB5) IF 01 NE 02 FAILS                                            WSPD0046
+  TO (LB6) IF 01 NE 01 FAILS                                            WSPD0047
+  TO CAR LB7 IF 01 NE 02 FAILS                                          WSPD0048
+  TO CAR LB8 IF 01 NE 01 FAILS                                          WSPD0049
+  TO CDR LB7 IF 01 NE 02 FAILS                                          WSPD0050
+  TO CDR LB8 IF 01 NE 01 FAILS                                          WSPD0051
+9)  TESTS OF JNE COMPLETE.                                              WSPD0052
+  TO (LB9) IF 01 LT 02 FAILS                                            WSPD0053
+  TO (LB10) IF 01 LT 01 FAILS                                           WSPD0054
+  TO (LB11) IF 02 LT 01 FAILS                                           WSPD0055
+  TO CAR LB12 IF 01 LT 02 FAILS                                         WSPD0056
+  TO CAR LB13 IF 01 LT 01 FAILS                                         WSPD0057
+  TO CAR LB14 IF 02 LT 01 FAILS                                         WSPD0058
+  TO CDR LB12 IF 01 LT 02 FAILS                                         WSPD0059
+  TO CDR LB13 IF 01 LT 01 FAILS                                         WSPD0060
+  TO CDR LB14 IF 02 LT 01 FAILS                                         WSPD0061
+10) TESTS OF JLT COMPLETE.                                              WSPD0062
+  IO ON (ONE) FAILS                                                     WSPD0063
+  IO ON CAR PTR FAILS                                                   WSPD0064
+  IO ON CDR PTR FAILS                                                   WSPD0065
+  LINE BUFFER POINTER IS NOT INCREMENTED BY IO 01                       WSPD0066
+11) IF THIS IS THE LAST LINE, NO CR/LF WAS FOUND IN THE LINE BUFFER.    WSPD0067
+12) A CR/LF WAS FOUND IN THE LINE BUFFER.                               WSPD0068
+  THE LINE BUFFER POINTER DID NOT RETURN TO 1 AFTER THE CR/LF WAS FOUND.WSPD0069
+  A WRITE INTO THE LINE BUFFER DOES NOT ALTER THE POINTER. TEST ABORTS. WSPD0070
+13) IF (14) IS THE LAST LINE, THE LBP DOES NOT WRAP AROUND AT FULL LB.  WSPD0071
+14) A FULL LINE OF PLUSES FOLLOWS. THE SLASH IN LB(0) MUST NOT PRINT.   WSPD0072
+15) IF LINE 16 IS NOT BLANK, WRITING NIL DOES NOT TERMINATE A LINE.     WSPD0073
+  LINE BUFFER POINTER IS NOT RESET TO 1 AFTER NIL IS INSERTED.          WSPD0074
+17) WISP MACRO TEST PROGRAM COMPLETED NORMALLY.                         WSPD0075

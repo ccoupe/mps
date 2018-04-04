@@ -1,0 +1,172 @@
+      IO 03 ON INPUT, IO 04 ON PRINT.             FETIM, IOPIM, ELEMENT WSPT0001
+      READ INPUT, WRITE PRINT.                    EXTENDED OPERATIONS   WSPT0002
+      READ INPUT, TO L1 IF 01 = 01.               CMPIM, JEQIM          WSPT0003
+      WRITE PRINT.                                                      WSPT0004
+L1,   READ INPUT, TO L2 IF 01 = 02, TO L3.                              WSPT0005
+L2,   WRITE PRINT.                                                      WSPT0006
+L3,   READ INPUT, TO L4 IF 01 NE 02.              JNEIM                 WSPT0007
+      WRITE PRINT.                                                      WSPT0008
+L4,   READ INPUT, TO L5 IF 01 NE 01, TO L6.                             WSPT0009
+L5,   WRITE PRINT.                                                      WSPT0010
+L6,   READ INPUT, TO L7 IF 01 LT 02.              JLTIM                 WSPT0011
+      WRITE PRINT.                                                      WSPT0012
+L7,   READ INPUT, TO L8 IF 01 LT 01, TO L9.                             WSPT0013
+L8,   WRITE PRINT.                                                      WSPT0014
+L9,   READ INPUT, TO L10 IF 02 LT 01, TO L11.                           WSPT0015
+L10,  WRITE PRINT.                                                      WSPT0016
+L11,  READ INPUT, WRITE PRINT.                                          WSPT0017
+      READ INPUT, TO L12 IF ONE = (PTR).          CMPDR                 WSPT0018
+      WRITE PRINT.                                                      WSPT0019
+L12,  READ INPUT, TO L13 IF PTR NE (PTR).                               WSPT0020
+      WRITE PRINT.                                                      WSPT0021
+L13,  READ INPUT, TO L14 IF PRINT LT (PTR).                             WSPT0022
+      WRITE PRINT.                                                      WSPT0023
+L14,  READ INPUT, TO L15 IF 00 = AF PTR.          CMPAF                 WSPT0024
+      WRITE PRINT.                                                      WSPT0025
+L15,  READ INPUT, TO L16 IF 01 = BPF PTR.         CMPBP                 WSPT0026
+      WRITE PRINT.                                                      WSPT0027
+L16,  READ INPUT, TO L17 IF 02 = CAR PTR.         CMPCA                 WSPT0028
+      WRITE PRINT.                                                      WSPT0029
+L17,  READ INPUT, TO L18 IF 03 = CDR PTR.         CMPCD                 WSPT0030
+      WRITE PRINT.                                                      WSPT0031
+L18,  READ INPUT, WRITE PRINT.                                          WSPT0032
+      READ INPUT, TO L19 IF (PTR2) = PTR.         FETDR                 WSPT0033
+      WRITE PRINT.                                                      WSPT0034
+L19,  READ INPUT, TO L20 IF AF PTR2 = 01.         FETAF                 WSPT0035
+      WRITE PRINT.                                                      WSPT0036
+L20,  READ INPUT, TO L21 IF BPF PTR2 = 00.        FETBP                 WSPT0037
+      WRITE PRINT.                                                      WSPT0038
+L21,  READ INPUT, TO L22 IF CAR PTR2 = 04.        FETCA                 WSPT0039
+      WRITE PRINT.                                                      WSPT0040
+L22,  READ INPUT, TO L23 IF CDR PTR2 = ONE.       FETCD                 WSPT0041
+      WRITE PRINT.                                                      WSPT0042
+L23,  READ INPUT, WRITE PRINT.                                          WSPT0043
+      READ INPUT, (PTR2) = ONE.                   STODR                 WSPT0044
+      TO L24 IF (PTR2) = ONE, WRITE PRINT.                              WSPT0045
+L24,  READ INPUT, AF PTR = 01.                    STOAF                 WSPT0046
+      TO L25 IF AF PTR = 01, WRITE PRINT.                               WSPT0047
+L25,  READ INPUT, BPF PTR = 00.                   STOBP                 WSPT0048
+      TO L26 IF BPF PTR = 00, WRITE PRINT.                              WSPT0049
+L26,  READ INPUT, CAR PTR = 05.                   STOCA                 WSPT0050
+      TO L27 IF CAR PTR = 05, WRITE PRINT.                              WSPT0051
+L27,  READ INPUT, CDR PTR = 06.                   STOCD                 WSPT0052
+      TO L28 IF CDR PTR = 06, WRITE PRINT.                              WSPT0053
+L28,  READ INPUT, WRITE PRINT.                                          WSPT0054
+      READ INPUT, INCR AF PTR3.                   INCAF                 WSPT0055
+      TO L29 IF AF PTR3 = 00, WRITE PRINT.                              WSPT0056
+L29,  READ INPUT, INCR BPF PTR3.                  INCBP                 WSPT0057
+      TO L30 IF BPF PTR3 = 01, WRITE PRINT.                             WSPT0058
+L30,  READ INPUT, INCR (PTR3).                    INCDR                 WSPT0059
+      TO L31 IF (PTR3) = PTR2, WRITE PRINT.                             WSPT0060
+L31,  READ INPUT, INCR AF PTR4.                   INCAF                 WSPT0061
+      TO L32 IF AF PTR4 = 01, WRITE PRINT.                              WSPT0062
+L32,  READ INPUT, INCR BPF PTR4.                  INCBP                 WSPT0063
+      TO L33 IF BPF PTR4 = 00, WRITE PRINT.                             WSPT0064
+L33,  READ INPUT, INCR CAR PTR4.                  INCCA                 WSPT0065
+      TO L34 IF CAR PTR4 = PTR3, WRITE PRINT.                           WSPT0066
+L34,  READ INPUT, INCR CDR PTR4.                  INCCD                 WSPT0067
+      TO L35 IF CDR PTR4 = INC, WRITE PRINT.                            WSPT0068
+L35,  READ INPUT, WRITE PRINT.                                          WSPT0069
+      READ INPUT, TO (LB1) IF 01 = 01.            JEQDR                 WSPT0070
+      WRITE PRINT.                                                      WSPT0071
+L36,  READ INPUT, TO (LB2) IF 01 = 02, TO L38.                          WSPT0072
+L37,  WRITE PRINT.                                                      WSPT0073
+L38,  READ INPUT, TO CAR LB3 IF 01 = 01.          JEQCA                 WSPT0074
+      WRITE PRINT.                                                      WSPT0075
+L39,  READ INPUT, TO CAR LB4 IF 01 = 02, TO L41.                        WSPT0076
+L40,  WRITE PRINT.                                                      WSPT0077
+L41,  READ INPUT, TO CDR LB3 IF 01 = 01.          JEQCD                 WSPT0078
+      WRITE PRINT.                                                      WSPT0079
+L42,  READ INPUT, TO CDR LB4 IF 01 = 02, TO L44.                        WSPT0080
+L43,  WRITE PRINT.                                                      WSPT0081
+L44,  READ INPUT, WRITE PRINT.                                          WSPT0082
+      READ INPUT, TO (LB5) IF 01 NE 02.           JNEDR                 WSPT0083
+      WRITE PRINT.                                                      WSPT0084
+L45,  READ INPUT, TO (LB6) IF 01 NE 01, TO L47.                         WSPT0085
+L46,  WRITE PRINT.                                                      WSPT0086
+L47,  READ INPUT, TO CAR LB7 IF 01 NE 02.         JNECA                 WSPT0087
+      WRITE PRINT.                                                      WSPT0088
+L48,  READ INPUT, TO CAR LB8 IF 01 NE 01, TO L50.                       WSPT0089
+L49,  WRITE PRINT.                                                      WSPT0090
+L50,  READ INPUT, TO CDR LB7 IF 01 NE 02.         JNECD                 WSPT0091
+      WRITE PRINT.                                                      WSPT0092
+L51,  READ INPUT, TO CDR LB8 IF 01 NE 01, TO L53.                       WSPT0093
+L52,  WRITE PRINT.                                                      WSPT0094
+L53,  READ INPUT, WRITE PRINT.                                          WSPT0095
+      READ INPUT, TO (LB9) IF 01 LT 02.           JLTDR                 WSPT0096
+      WRITE PRINT.                                                      WSPT0097
+L54,  READ INPUT, TO (LB10) IF 01 LT 01, TO L56.                        WSPT0098
+L55,  WRITE PRINT.                                                      WSPT0099
+L56,  READ INPUT, TO (LB11) IF 02 LT 01, TO L58.                        WSPT0100
+L57,  WRITE PRINT.                                                      WSPT0101
+L58,  READ INPUT, TO CAR LB12 IF 01 LT 02.        JLTCA                 WSPT0102
+      WRITE PRINT.                                                      WSPT0103
+L59,  READ INPUT, TO CAR LB13 IF 01 LT 01, TO L61.                      WSPT0104
+L60,  WRITE PRINT.                                                      WSPT0105
+L61,  READ INPUT, TO CAR LB14 IF 02 LT 01, TO L63.                      WSPT0106
+L62,  WRITE PRINT.                                                      WSPT0107
+L63,  READ INPUT, TO CDR LB12 IF 01 LT 02.        JLTCD                 WSPT0108
+      WRITE PRINT.                                                      WSPT0109
+L64,  READ INPUT, TO CDR LB13 IF 01 LT 01, TO L66.                      WSPT0110
+L65,  WRITE PRINT.                                                      WSPT0111
+L66,  READ INPUT, TO CDR LB14 IF 02 LT 01, TO L68.                      WSPT0112
+L67,  WRITE PRINT.                                                      WSPT0113
+L68,  READ INPUT, WRITE PRINT.                                          WSPT0114
+      (NIL) = 01.                                                       WSPT0115
+      READ INPUT, IO 01 ON (ONE).                 IOPDR                 WSPT0116
+      TO L69 IF (ONE) = ' , WRITE PRINT.                                WSPT0117
+L69,  READ INPUT, IO 01 ON CAR PTR.               IOPCA                 WSPT0118
+      TO L70 IF CAR PTR = ' , WRITE PRINT.                              WSPT0119
+L70,  READ INPUT, IO 01 ON CDR PTR.               IOPCD                 WSPT0120
+      TO L71 IF (ONE) = 'I, WRITE PRINT.                                WSPT0121
+L71,  READ INPUT, TO L72 IF (NIL) = 04.           LINE BUFFER POINTER   WSPT0122
+      WRITE PRINT.                                                      WSPT0123
+L72,  READ INPUT, WRITE PRINT.                                          WSPT0124
+L73,  IO 01 ON A, TO L73 IF A NE NIL.             CHECK FOR CR/LF.      WSPT0125
+      READ INPUT, WRITE PRINT.                                          WSPT0126
+      READ INPUT, TO L74 IF (NIL) = 01.           WRAPAROUND            WSPT0127
+      WRITE PRINT.                                                      WSPT0128
+L74,  READ INPUT, (NIL) = 01.                                           WSPT0129
+      IO 02 ON ' , TO L75 IF (NIL) = 02.          LINE BUFFER POINTER.  WSPT0130
+      WRITE PRINT, STOP.                          AVOID A HANGUP        WSPT0131
+L75,  READ INPUT, WRITE PRINT.                                          WSPT0132
+      READ INPUT, WRITE PRINT.                                          WSPT0133
+      (NIL) = 01.                                                       WSPT0134
+L76,  IO 02 ON '+, TO L76 IF (NIL) NE 00.         WRAPAROUND            WSPT0135
+      IO 02 ON '/, WRITE PRINT.                   LB POSITION 0.        WSPT0136
+      READ INPUT, WRITE PRINT.                                          WSPT0137
+      (NIL) = 02, IO 02 ON '6.                                          WSPT0138
+      (NIL) = 04, IO 02 ON NIL, WRITE PRINT.      LB TERMINATION        WSPT0139
+      READ INPUT, TO L77 IF (NIL) = 01.           LB POINTER RESET      WSPT0140
+      WRITE PRINT.                                                      WSPT0141
+L77,  READ INPUT, WRITE PRINT, STOP.                                    WSPT0142
+INPUT,ELEMENT 00 00 01 00.                        INPUT UNIT SPECIFIER  WSPT0143
+PRINT,ELEMENT 00 00 04 00.                        PRINT UNIT SPECIFIER  WSPT0144
+ONE,  ELEMENT 00 01 02 03.                                              WSPT0145
+PTR,  ELEMENT 01 00 04 ONE.                                             WSPT0146
+PTR2, ELEMENT 00 00 00 PTR.                                             WSPT0147
+PTR3, ELEMENT 00 01 00 PTR.                                             WSPT0148
+INC,  ELEMENT 00 01 PTR2 PTR3.                                          WSPT0149
+PTR4, ELEMENT 00 00 00 INC.                                             WSPT0150
+LB1,  ELEMENT 00 00 00 L36.                                             WSPT0151
+LB2,  ELEMENT 00 00 00 L37.                                             WSPT0152
+LB3,  ELEMENT 00 00 00 LB31.                                            WSPT0153
+LB31, ELEMENT 00 00 L39 L42.                                            WSPT0154
+LB4,  ELEMENT 00 00 00 LB41.                                            WSPT0155
+LB41, ELEMENT 00 00 L40 L43.                                            WSPT0156
+LB5,  ELEMENT 00 00 00 L45.                                             WSPT0157
+LB6,  ELEMENT 00 00 00 L47.                                             WSPT0158
+LB7,  ELEMENT 00 00 00 LB71.                                            WSPT0159
+LB71, ELEMENT 00 00 L48 L51.                                            WSPT0160
+LB8,  ELEMENT 00 00 00 LB81.                                            WSPT0161
+LB81, ELEMENT 00 00 L49 L52.                                            WSPT0162
+LB9,  ELEMENT 00 00 00 L54.                                             WSPT0163
+LB10, ELEMENT 00 00 00 L55.                                             WSPT0164
+LB11, ELEMENT 00 00 00 L57.                                             WSPT0165
+LB12, ELEMENT 00 00 00 LB121.                                           WSPT0166
+LB121,ELEMENT 00 00 L59 L64.                                            WSPT0167
+LB13, ELEMENT 00 00 00 LB131.                                           WSPT0168
+LB131,ELEMENT 00 00 L60 L65.                                            WSPT0169
+LB14, ELEMENT 00 00 00 LB141.                                           WSPT0170
+LB141,ELEMENT 00 00 L62 L67.                                            WSPT0171
+      END PROGRAM.                                                      WSPT0172

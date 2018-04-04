@@ -1,0 +1,625 @@
+%%FLBM.DAT
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 3 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL W = 4 + 0.
+MESSAGE CONV TO W.           PRINT THE CONVERSION ERROR MESSAGE.
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL W = 4 + 0.
+MESSAGE EXPR TO W.           PRINT THE EXPRESSION ERROR MESSAGE.
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL W = 4 + 0.
+MESSAGE FULL TO W.           PRINT THE SPACE OVERFLOW MESSAGE.
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+FLG X = 3.                   TEST TO ENSURE THAT A MESSAGE DOES NOT 
+VAL X = 4 + 0.               CORRUPT THE REGISTER WHICH SPECIFIES THE 
+PTR X = 2 + 0.               CHANNEL, AND THAT IT RETURNS THE PROPER FLG
+MESSAGE IOCH TO X.           PRINT THE I/O ERROR MESSAGE
+VAL B = 1 + 0.
+READ NEXT B.
+TO 65 IF VAL X = 4. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 65. 
+TO 70 BY D. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG C = 2.
+FLG D = C.                             FLG * = *
+TO 01 IF FLG C NE 2.
+TO 01 IF FLG D NE 2.
+TO 01 IF FLG D NE C.
+TO 02.
+LOC 01. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 02. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 3.
+PTR X = VAL 0.
+VAL X = X + 4.                         VAL X = X + *
+TO 03 IF VAL X NE 7.
+TO 03 IF PTR X NE 0.
+TO 03 IF FLG X NE 0.
+TO 04.
+LOC 03. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 04. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 3.
+PTR X = VAL 0.
+VAL X = 2 + X.                         VAL X = * + X
+TO 05 IF VAL X NE 5.
+TO 05 IF PTR X NE 0.
+TO 05 IF FLG X NE 0.
+TO 06.
+LOC 05. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 06. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+PTR X = VAL 0.
+VAL X = PTR 3.
+VAL X = X - 2.                         VAL X = X - *
+TO 07 IF VAL X NE 1.
+TO 07 IF PTR X NE 0.
+TO 07 IF FLG X NE 0.
+TO 08.
+LOC 07. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 08. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+PTR X = VAL 0.
+VAL X = PTR 3.
+VAL X = 7 - X.                         VAL X = * - X
+TO 09 IF VAL X NE 4.
+TO 09 IF FLG X NE 0.
+TO 09 IF PTR X NE 0.
+TO 10.
+LOC 09. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 10. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR Y = VAL 6.
+PTR X = VAL 4.
+PTR X = X + 2.                         PTR X = X + *
+TO 11 IF PTR X NE Y.
+TO 11 IF VAL X NE 0.
+TO 11 IF FLG X NE 0.
+TO 12.
+LOC 11. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 12. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 3.
+PTR X = 3 + X.                         PTR X = * + X
+TO 13 IF PTR X NE Y.
+TO 13 IF VAL X NE 0.
+TO 13 IF FLG X NE 0.
+TO 14.
+LOC 13. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 14. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 5.
+PTR X = X - 3.                         PTR X = X - *
+TO 15 IF PTR X NE 2.
+TO 15 IF VAL X NE 0.
+TO 15 IF FLG X NE 0.
+TO 16.
+LOC 15. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 16. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 2.
+PTR X = 3 - X.                         PTR X = * - X
+TO 17 IF PTR X NE 1.
+TO 17 IF VAL X NE 0.
+TO 17 IF FLG X NE 0.
+TO 18.
+LOC 17. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 18. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 2.
+PTR X = X * 3.                         PTR X = X * *
+TO 19 IF PTR X NE Y.
+TO 19 IF VAL X NE 0.
+TO 19 IF FLG X NE 0.
+TO 20.
+LOC 19. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 20. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 3.
+PTR X = 2 * X.                         PTR X = * * X
+TO 21 IF PTR X NE Y.
+TO 21 IF VAL X NE 0.
+TO 21 IF FLG X NE 0.
+TO 22.
+LOC 21. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 22. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = 0 + Y.
+PTR X = X / 2.                         PTR X = X / *
+TO 23 IF PTR X NE 3.
+TO 23 IF VAL X NE 0.
+TO 23 IF FLG X NE 0.
+TO 24.
+LOC 23. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 24. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 2.
+PTR X = Y / X.                         PTR X = * / X
+TO 25 IF PTR X NE 3.
+TO 25 IF VAL X NE 0.
+TO 25 IF FLG X NE 0.
+TO 26.
+LOC 25. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 26. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 2.
+PTR X = VAL 0.
+VAL X = X + X.                         VAL X = X + X
+TO 27 IF FLG X NE 0.
+TO 27 IF PTR X NE 0.
+TO 27 IF VAL X NE 4.
+TO 28.
+LOC 27. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 28. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 2.
+PTR X = VAL 0.
+VAL X = X - X.                         VAL X = X - X
+TO 29 IF FLG X NE 0.
+TO 29 IF PTR X NE 0.
+TO 29 IF VAL X NE 0.
+TO 30.
+LOC 29. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 30. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+PTR X = VAL 1.
+VAL X = PTR 0.
+PTR X = X + X.                         PTR X = X + X
+TO 31 IF FLG X NE 0.
+TO 31 IF VAL X NE 0.
+TO 31 IF PTR X NE 2.
+TO 32.
+LOC 31. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 32. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 4.
+PTR X = X - X.                         PTR X = X - X
+TO 33 IF FLG X NE 0.
+TO 33 IF VAL X NE 0.
+TO 33 IF PTR X NE 0.
+TO 34.
+LOC 33. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 34. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR Y = VAL 4.
+PTR X = VAL 2.
+PTR X = X * X.                         PTR X = X * X
+TO 35 IF FLG X NE 0.
+TO 35 IF VAL X NE 0.
+TO 35 IF PTR X NE Y.
+TO 36.
+LOC 35. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 36. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+VAL X = PTR 0.
+PTR X = VAL 3.
+PTR X = X / X.                         PTR X = X / X
+TO 37 IF FLG X NE 0.
+TO 37 IF VAL X NE 0.
+TO 37 IF PTR X NE 1.
+TO 38.
+LOC 37. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 38. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 0.
+PTR X = 0 + 0.
+VAL X = CHAR. 
+TO 58 IF FLG X NE 0.
+TO 58 IF PTR X NE 0.
+TO 59.
+LOC 58. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 59. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL A = 0 - 1.
+CHAR = VAL A. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG X = 3.
+VAL X = 4 + 0.
+PTR X = 2 + 0.
+WRITE NEXT X. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 60 IF VAL X = 4. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 60. 
+TO 70 BY D.                  CHECK FOR SIDE EFFECTS OF WRITE. 
+FLG X = 3.
+VAL X = 1 + 0.
+PTR X = 2 + 0.
+READ NEXT X.
+TO 61 IF VAL X = 1. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 61. 
+TO 70 BY D. 
+FLG X = 3.
+VAL X = 2 + 0.
+PTR X = 2 + 0.
+REWIND X. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 62 IF VAL X = 2. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 62. 
+TO 70 BY D. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL X = CHAR. 
+VAL X = CHAR. 
+VAL Z = 2 + 0.
+WRITE NEXT Z. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL Z = 2 + 0.
+WRITE NEXT Z. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL Z = 2 + 0.
+REWIND Z. 
+VAL Z = 2 + 0.
+READ NEXT Z.
+VAL Z = CHAR. 
+VAL Z = CHAR. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 63 IF VAL X = Z. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 63. 
+VAL Z = 2 + 0.
+READ NEXT Z.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+FLG Z = 0.
+VAL Z = 2 + 0.
+READ NEXT Z.
+VAL B = 1 + 0.
+READ NEXT B.
+TO 64 IF FLG Z = 1. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 64. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 3 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 3 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 39 IF PTR 8 GE 9.
+TO 40.
+LOC 39. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+STOP. 
+LOC 40. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR C = 0 + 8.
+FLG D = 0.
+VAL D = PTR 0.
+PTR D = VAL 0.
+LOC 41. 
+STO C = D.                                  STO ZEROS 
+PTR C = C + 7.
+TO 41 IF PTR C LT 9.
+STO C = D.
+FLG D = 3.
+PTR C = 0 + 8.
+LOC 42. 
+GET E = C.
+TO 43 IF FLG E NE 0.                        CHECK STO-GET FLG 
+STO C = D.
+GET E = C.
+TO 43 IF FLG E NE 3.
+PTR C = C + 7.
+TO 42 IF PTR C LT 9.
+GET E = C.
+TO 43 IF FLG E NE 0.
+STO C = D.
+GET E = C.
+TO 43 IF FLG E NE 3.
+TO 44.
+LOC 43. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 44. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL D = 0 - 1.
+VAL F = 0 - 1.
+PTR C = 0 + 8.
+LOC 45. 
+GET E = C.
+TO 46 IF VAL E NE 0.                        CHECK STO-GET VAL 
+STO C = D.
+GET E = C.
+TO 46 IF VAL E NE F.
+PTR C = C + 7.
+TO 45 IF PTR C LT 9.
+GET E = C.
+TO 46 IF VAL E NE 0.
+STO C = D.
+GET E = C.
+TO 46 IF VAL E NE F.
+TO 47.
+LOC 46. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 47. 
+VAL B = 1 + 0.
+READ NEXT B.
+PTR D = 0 - 1.
+PTR F = 0 - 1.
+PTR C = 0 + 8.
+LOC 48. 
+GET E = C.
+TO 49 IF PTR E NE 0.                        CHECK STO-GET PTR 
+STO C = D.
+GET E = C.
+TO 49 IF PTR E NE F.
+PTR C = C + 7.
+TO 48 IF PTR C LT 9.
+GET E = C.
+TO 49 IF PTR E NE 0.
+STO C = D.
+GET E = C.
+TO 49 IF PTR E NE F.
+TO 50.
+LOC 49. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 50. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 51. 
+VAL X = CHAR. 
+PTR D = D + 1.
+TO 51 IF VAL X NE F.
+VAL B = 1 + 0.
+READ NEXT B.
+VAL A = CHAR. 
+VAL B = CHAR. 
+VAL C = CHAR. 
+VAL D = CHAR. 
+VAL E = CHAR. 
+VAL H = CHAR. 
+PTR X = VAL 5.
+PTR X = X + X.
+PTR Y = X * X.
+PTR A = D / Y.
+PTR B = D / X.
+PTR C = B * X.
+PTR C = D - C.
+PTR E = A * X.
+PTR B = B - E.
+VAL E = PTR A.
+VAL E = E + H.
+VAL F = PTR B.
+VAL F = F + H.
+VAL G = PTR C.
+VAL G = G + H.
+CHAR = VAL A. 
+CHAR = VAL B. 
+CHAR = VAL C. 
+CHAR = VAL D. 
+CHAR = VAL E. 
+CHAR = VAL F. 
+CHAR = VAL G. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+FLG C = 2.
+CHAR = VAL C. 
+VAL B = 1 + 0.
+READ NEXT B.
+TO 52 IF FLG C = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 52. 
+VAL B = 1 + 0.
+READ NEXT B.
+FLG A = 0.
+VAL A = 0 - 1.
+CHAR = VAL A. 
+TO 53 IF FLG A = 1. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+STOP. 
+LOC 53. 
+CHAR = VAL C. 
+TO 53 IF FLG C = 0. 
+VAL W = 4 + 0.
+WRITE NEXT W. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+STOP. 
+LOC 70.                      ROUTINE FOR CHECKING I/O OPERATIONS. 
+VAL B = 1 + 0.               READ POINTER ALTERED MESSAGE.
+READ NEXT B.
+TO 71 IF PTR X = 2. 
+VAL W = 4 + 0.               POINTER HAS BEEN ALTERED.
+WRITE NEXT W. 
+LOC 71.                      CHECK FLAG VALUE RETURNED. 
+VAL X = 4 + 0.               NUMBER OF CARDS TO BE READ.
+TO 73 IF FLG X = 0.          CORRECT VALUE. 
+VAL B = 1 + 0.               ENDFILE MESSAGE. 
+READ NEXT B.
+VAL X = X - 1.
+TO 72 IF FLG X = 1. 
+VAL B = 1 + 0.               ILLEGAL OP MESSAGE.
+READ NEXT B.
+VAL X = X - 1.
+TO 72 IF FLG X = 2. 
+VAL B = 1 + 0.               FLAG UNCHANGED MESSAGE.
+READ NEXT B.
+VAL X = X - 1.
+TO 72 IF FLG X = 3. 
+VAL B = 1 + 0.               RUBBISH IN FLAG. 
+READ NEXT B.
+VAL X = X - 1.
+LOC 72.                      ERROR MESSAGE OUTPUT.
+VAL W = 4 + 0.
+WRITE NEXT W. 
+LOC 73.                      DISCARD FURTHER MESSAGES.
+TO 74 IF VAL X = 0. 
+VAL B = 1 + 0.
+READ NEXT B.
+VAL X = X - 1.
+TO 73.
+LOC 74. 
+RETURN BY D.
+END PROGRAM.
